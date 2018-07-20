@@ -1,0 +1,41 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title></title>
+    <script type="text/javascript" charset="utf-8" src="ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor.all.js"></script>
+    <!--<style type="text/css">
+        body{
+            font-size:14px;
+        }
+    </style>-->
+</head>
+<body>
+    <h2>UEditor提交示例</h2>
+    <!--<form id="form" method="post" target="_blank">-->
+        <script type="text/plain" id="myEditor" name="myEditor">
+            <p>欢迎使用UEditor！</p>
+        </script>
+    <!--</form>-->
+    
+    <!--如果需要多个就添加就行了，，具体配置参考百度文本框-->
+   		<script type="text/plain" id="myEditor01" name="myEditor01">
+            <p>欢迎使用UEditor！001</p>
+        </script>
+
+    <script type="text/javascript">
+        var ue = UE.getEditor('myEditor',{
+        	initialFrameHeight:100
+        });
+        var ue01 = UE.getEditor('myEditor01',{
+        	initialFrameHeight:100
+        });
+    </script>
+
+</body>
+
+
+</html>

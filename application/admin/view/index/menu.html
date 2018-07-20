@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge,IE=11,IE=10,IE=9,IE=8"/>
+		<meta http-equiv="expires" content="0" /> 
+		<meta http-equiv="Pragma" content="no-cache" />
+		
+		<title>众联云海后台管理系统</title>
+		<!-- Tell the browser to be responsive to screen width -->
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<!-- Bootstrap 3.3.6 -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css">
+		<!-- Font Awesome -->
+		<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/font-awesome/css/font-awesome.css">
+			
+		<!-- Ionicons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+		
+		<link rel="stylesheet" href="__PUBLIC__/plugins/iCheck/all.css">
+		<!-- Theme style -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/dist/css/AdminLTE.min.css">
+		<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/dist/css/skins/_all-skins.min.css">
+			
+		<style type="text/css">
+			.cb{
+				clear: both;
+			}
+			.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+				vertical-align: middle;
+			}
+			.img{
+				width: 50px;
+				height: 50px;
+				position: relative;
+				background: #EEEEEE;
+			}
+			.img>img{
+				max-height: 100%;
+				max-width: 100%;
+				position: absolute;
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				margin: auto;
+			}
+			
+			/*详情图片*/
+			.detailsImg{
+				height: 300px;
+				background: #EEEEEE;
+				position: relative;
+			}
+			.detailsImg>img{
+				max-height: 100%;
+				max-width: 100%;
+				position: absolute;
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				margin: auto;
+			}
+			.detailsImg:empty:after{
+				width: 238px;
+			    height: 50px;
+			    content: '点击选择图片';
+			    font-size: 38px;
+			    position: absolute;
+			    top: 0px;
+			    left: 0px;
+			    bottom: 0px;
+			    right: 0px;
+			    margin: auto;
+			    color: #9c9c9c;
+			}
+			
+			/*图片放大*/
+			.enlargeImg{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0px;
+				left: 0px;
+				background: rgba(0,0,0,0.3);
+				z-index: 1031;
+				display: none;
+			}
+			.enlargeImg>div{
+				width: 40%;
+				height: 40%;
+				background:  rgba(0,0,0,0.5);
+				margin: auto;
+				position: absolute;
+			    top: 0px;
+			    bottom: 0px;
+			    left: 0px;
+			    right: 0px;
+			}
+			.enlargeImg>div>img{
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			
+			
+			.digui>li ul{
+				padding-left:105px;
+				display: none;
+			}
+			.digui .open_1{
+				float: left;
+				margin: 5px 10px 0px 0px;
+			}
+			.digui .DisplayName,
+			.digui .Formerly,
+			.digui .typeName{
+				display: inline-block;
+				margin: 0px 10px 0px 0px;
+				text-align: center;
+				min-width: 100px;
+				height: 30px;
+				line-height: 30px;
+				float: left;
+			}
+			.digui .DisplayName{
+				background: #FFF3E6;
+				font-size: 16px;
+			}
+			.digui .Formerly,
+			.digui .typeName{
+				font-size: 12px;
+				background: #EEEEEE;
+				color: #808080;
+			}
+		</style>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+	</head>
+
+	<body class="hold-transition skin-blue sidebar-mini">
+		<div class="wrapper">
+			
+			<!--引入导航-->
+			{include file="index::Navigation" /}
+			
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<h1>
+						{$typeNme[$type]}
+				   	</h1>
+					<ol class="breadcrumb">
+				        <li><a href="javascript:;"><i class="fa fa-dashboard"></i>{$typeNme[$type]}</a></li>
+				    </ol>
+				</section>
+				
+				<!--内容-->
+				<section class="content">
+					<div class="box">
+						<div class="box-header"><button v-on:click="DisplayDetails(0)" class="btn btn-info pull-right">添加</button></div>
+						<div class="box-body" style="min-height: 300px;">
+								<!--<ul class='nav nav-stacked digui'>
+									<li v-for='x in menuList' role='presentation' >
+										<a href="javascript:;">
+											<i class="open_1 glyphicon " v-bind:class="{'glyphicon-plus':x.children,'glyphicon-minus':!x.children}"></i>
+											<span class="DisplayName">{{x.DisplayName}}</span>
+											<span class="Formerly">{{x.Formerly}}</span>
+											<span class="typeName">{{typeName[x.type]}}</span>
+											<div class="btn-group btn-group-sm pull-right">
+											    <button type="button" v-on:click="edit(x)" class="btn btn-default">编辑</button>
+											    <button type="button" class="btn btn-danger">删除</button>
+											</div>
+											<div class="cb"></div>
+										</a>
+										<ul v-if='x.children' class="nav nav-stacked">
+											<li v-for='y in x.children'>
+												<a href="javascript:;">
+													<span class="DisplayName">{{y.DisplayName}}</span>
+													<span class="Formerly">{{y.Formerly}}</span>
+													<span class="typeName">{{typeName[y.type]}}</span>
+													<div class="btn-group btn-group-sm pull-right">
+													    <button type="button" v-on:click="edit(x)" class="btn btn-default">编辑</button>
+													    <button type="button" class="btn btn-danger">删除</button>
+													</div>
+													<div class="cb"></div>
+												</a>
+											</li>
+										</ul>
+									</li>
+								</ul>-->
+							<ul class='nav nav-stacked digui'>
+								<digui v-for="x in menuList" :model="x"></digui>
+							</ul>
+						</div>
+					</div>
+					
+					<!--添加出框-->
+					<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <!--<div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					                <h4 class="modal-title" id="myModalLabel">详情</h4>
+					            </div>-->
+					            <form @submit.prevent="sub()">
+						            <div class="modal-body">
+						            	<div class="form-group">
+						            		<label>页面链接类型</label>
+						            		<select class="form-control" v-model="menuType">
+						            			<option value="0">基础类型</option>
+						            			<option value="1">页面类型</option>
+						            			<option value="2">自定义链接</option>
+						            		</select>
+						            	</div>
+						            	<div class="form-group">
+						            		<label for="">请选择父级</label>
+						            		<select name="" v-model="parentId" class="form-control">
+						            			<option value="0">无</option>
+						            			<option v-for="x in noParentList" v-bind:value="x.Id">{{x.DisplayName}}</option>
+						            		</select>
+						            	</div>
+						            	<div v-if="menuType==0" class="">
+						            		<table class="table table-bordered" style="margin-bottom: 0px;">
+						            			<thead>
+						            				<tr>
+						            					<th></th>
+						            					<th>原名</th>
+						            					<th>显示名</th>
+						            				</tr>
+						            			</thead>
+						            			<tbody>
+						            				<tr v-for="x in BasicsList">
+						            					<td style="width: 50px;">
+						            						<div v-on:click="changeChecked(x)" v-bind:class="{'checked':x.checked}" class="icheckbox_minimal-blue"></div>
+						            					</td>
+						            					<td>{{x.title}}</td>
+						            					<td><input type="text" class="form-control" v-model="x.DisplayName" name="" id="" value="" /></td>
+						            				</tr>
+						            			</tbody>
+						            		</table>
+						            	</div>
+						            	<div v-if="menuType==1" class="">
+						            		<table class="table table-bordered" style="margin-bottom: 0px;">
+						            			<thead>
+						            				<tr>
+						            					<th></th>
+						            					<th>原名</th>
+						            					<th>显示名</th>
+						            				</tr>
+						            			</thead>
+						            			<tbody>
+						            				<tr v-for="x in pageList">
+						            					<td style="width: 50px;">
+						            						<div v-on:click="changeChecked(x)" v-bind:class="{'checked':x.checked}" class="icheckbox_minimal-blue"></div>
+						            					</td>
+						            					<td>{{x.title}}</td>
+						            					<td><input type="text" class="form-control" v-model="x.DisplayName" name="" id="" value="" /></td>
+						            				</tr>
+						            			</tbody>
+						            		</table>
+						            		<div class="box-footer" v-if="pageing.page.length>1">
+								              	<ul class="pagination pagination-sm no-margin pull-right">
+								                	<li v-on:click="changPage(pageing.upper)"><a href="javascript:;">«</a></li>
+								                	<li v-on:click="changPage(x)" v-bind:class="{'active':x==pageIndex}" v-for="x in pageing.page"><a href="javascript:;">{{x}}</a></li>
+								                	<li v-on:click="changPage(pageing.lower)"><a href="javascript:;">»</a></li>
+								              	</ul>
+								            </div>
+						            	</div>
+						            	<div v-if="menuType==2" class="">
+						            		<div class="form-group">
+						            			<label for="">请输入显示名</label>
+						            			<input type="text" class="form-control" v-model="CustomName" name="" id="" value="" />
+						            		</div>
+						            		<div class="form-group">
+						            			<label for="">请输入链接地址</label>
+						            			<input type="text" class="form-control" v-model="CustomUrl" name="" id="" value="" />
+						            		</div>
+						            	</div>
+						            </div>
+						            <div class="modal-footer">
+						                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						                <button type="submit" class="btn btn-primary">确定</button>
+						            </div>
+					            </form>
+					        </div><!-- /.modal-content -->
+					    </div><!-- /.modal -->
+					</div>
+					
+					<!--提示-->
+					<div class="modal fade" id="Prompt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					                <h4 class="modal-title" id="myModalLabel">提示</h4>
+					            </div>
+					            <div class="modal-body">{{Prompt}}</div>
+					            <!--<div class="modal-footer">
+					                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					                <button type="button" class="DetermineDel btn btn-primary">确定</button>
+					            </div>-->
+					        </div><!-- /.modal-content -->
+					    </div><!-- /.modal -->
+					</div>
+					
+					<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					                <h4 class="modal-title" id="myModalLabel">提示</h4>
+					            </div>
+					            <div class="modal-body">如有下级将连通下级一起删除，确定删除？</div>
+					            <div class="modal-footer">
+					                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					                <button type="button" v-on:click="Determine()" class="btn btn-primary">确定</button>
+					            </div>
+					        </div><!-- /.modal-content -->
+					    </div><!-- /.modal -->
+					</div>
+					
+					<!--详情弹出框-->
+					<div class="modal fade" id="modify" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <!--<div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					                <h4 class="modal-title" id="myModalLabel">详情</h4>
+					            </div>-->
+					            <form @submit.prevent="sub_1()">
+						            <div class="modal-body">
+						            	<div class="form-group">
+						            		<label for="">请选择父级</label>
+						            		<select name="" v-model="modifyObj.parentId" class="form-control">
+						            			<option value="0">无</option>
+						            			<option v-if="x.Id!=modifyObj.Id" v-for="x in noParentList" v-bind:value="x.Id">{{x.DisplayName}}</option>
+						            		</select>
+						            	</div>
+						            	<div class="form-group">
+						            		<label for="">原名</label>
+						            		<input type="text" class="form-control" readonly="" v-model="modifyObj.Formerly"  name="" id="" value="" />
+						            	</div>
+						            	<div class="form-group">
+						            		<label for="">显示名</label>
+						            		<input type="text" class="form-control" v-model="modifyObj.DisplayName" name="" id="" value="" />
+						            	</div>
+						            	<div class="form-group">
+						            		<label for="">排序</label>
+						            		<input type="text" class="form-control" v-model="modifyObj.sort" name="" id="" value="" />
+						            	</div>
+						            	<div class="form-group">
+						            		<label for="">链接地址</label>
+						            		<input type="text" class="form-control" v-bind:readonly="modifyObj.type!=2" v-model="modifyObj.url" name="" id="" value="" />
+						            	</div>
+						            </div>
+						            <div class="modal-footer">
+						                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						                <button type="submit" class="btn btn-primary">确定</button>
+						            </div>
+					            </form>
+					        </div><!-- /.modal-content -->
+					    </div><!-- /.modal -->
+					</div>
+					
+					<!--<ul class="tree">
+					    <li>
+					      <span v-html="data.title" ></span>
+					      <items  v-for="(item , idx) in data.children" :data="item" :key="idx"></items>
+					    </li>
+					</ul>-->
+				</section>
+				<!-- /.content -->
+			</div>
+			
+			{include file="index::footer" /}
+			
+			<div class="file hidden">
+				<input type="file" accept="image/*" name="" id="" value="" />
+			</div>
+
+			
+			<div class="control-sidebar-bg"></div>
+		</div>
+		<!-- ./wrapper -->
+								
+								<!--递归模块-->
+								<template id="item-template">
+									<li  role='presentation' >
+										<a href="javascript:;">
+											<i class="open_1 glyphicon " v-bind:class="{'glyphicon-plus':model.children,'glyphicon-minus':!model.children}"></i>
+											<span class="DisplayName">{{model.DisplayName}}</span>
+											<span class="Formerly">{{model.Formerly}}</span>
+											<span class="typeName">{{typeName[model.type]}}</span>
+											<div class="btn-group btn-group-sm pull-right">
+											    <button type="button" v-on:click="edit(model)" class="btn btn-default">编辑</button>
+											    <button type="button" v-on:click="delete_1(model)" class="btn btn-danger">删除</button>
+											</div>
+											<div class="cb"></div>
+										</a>
+										<ul class="nav nav-stacked" v-if='model.children'>
+											<digui v-for="x in model.children" :model="x"></digui>
+										</ul>
+									</li>
+								</template>
+
+		<!-- jQuery 2.2.3 -->
+		<!-- jQuery UI 1.11.4 -->
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+		<script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.min.js"></script>
+		
+		<script src="__PUBLIC__/plugins/dist/js/app.min.js"></script>
+		<script src="__PUBLIC__/plugins/vue/vue.js"></script>
+		<script type="text/javascript">
+			
+			function ajax_post(u,d,f){
+				$.ajax({
+					type:"post",
+					url:u,
+					data:d,
+					async:true,
+					success:function(x){
+						f(x)
+					}
+				});
+			}
+		
+			Vue.component('digui', {
+		        template: '#item-template',
+		        props: {model: Object},
+		      	data: function () {
+		          	return{
+		          		typeName:['基础类型','页面类型','自定义链接']
+		          	}
+		      	},
+		      	methods: {
+		      		edit:function(x){
+		      			var obj={}
+		      			for(var key in x){
+		      				obj[key]=x[key];
+		      			}
+		      			content.modifyObj=obj
+		      			$('#modify').modal('show');
+		      		},
+		      		delete_1:function(x){
+		      			var obj={}
+		      			for(var key in x){
+		      				obj[key]=x[key];
+		      			}
+		      			content.modifyObj=obj
+		      			$('#Delete').modal('show');
+		      		}
+		      	}
+		    })
+			
+			
+			var type='{$type}';
+			var content=new Vue({
+					el:'.content',
+					data:{
+						typeName:['基础类型','页面类型','自定义类型'],
+						modifyObj:{},					//待修和删除改对象
+						Prompt:'',
+						parentId:0,
+						menuType:0,
+						BasicsList:[					//基础页面
+							{'title':'首页','DisplayName':'首页','url':'index',checked:false},
+							{'title':'解决方案','DisplayName':'解决方案','url':'product',checked:false},
+							{'title':'产品中心','DisplayName':'产品中心','url':'ProductList',checked:false},
+							{'title':'新闻中心','DisplayName':'新闻中心','url':'news',checked:false},
+							{'title':'关于我们','DisplayName':'关于我们','url':'AboutUs',checked:false},
+						],
+						pageList:[],					//page页面
+						pageIndex:1,
+						pageSize:5,
+						pageing:{"upper":"","page":[],"lower":""},
+						CustomName:'',			//自定义名
+						CustomUrl:'',
+						menuList:[],			//所有菜单
+						noParentList:[],			//无父级菜单
+					},
+					methods:{
+						DisplayDetails:function(){				//添加弹出框
+							$('#details').modal('show');
+						},
+						changeChecked:function(x){
+							x.checked=!x.checked
+						},
+						changPage:function(x){				//page分页
+							if(x!=''){
+								this.pageIndex=x
+								getpage();
+							}
+						},
+						sub:function(){
+							var val=[];
+							if(this.menuType==0){
+								for(var i=0;i<this.BasicsList.length;i++){
+									if(this.BasicsList[i].checked){
+										var obj=new Object();
+											obj.menuType='{$type}';
+											obj.parentId=this.parentId;
+											obj.DisplayName=this.BasicsList[i].DisplayName;
+											obj.Formerly=this.BasicsList[i].title;
+											obj.type=0;
+											obj.url=this.BasicsList[i].url;
+											obj.pageId='';
+											obj.sort='';
+										val.push(obj)
+									}
+								}
+								if(val.length==0){
+									this.Prompt='请选择添加内容';
+									$('#Prompt').modal('show');
+									return
+								}
+							}else if(this.menuType==1){
+								for(var i=0;i<this.pageList.length;i++){
+									if(this.pageList[i].checked){
+										var obj=new Object();
+											obj.menuType='{$type}';
+											obj.parentId=this.parentId;
+											obj.DisplayName=this.pageList[i].DisplayName;
+											obj.Formerly='';
+											obj.type=1;
+											obj.url='自动获取';
+											obj.pageId=this.pageList[i].Id;
+											obj.sort='';
+										val.push(obj)
+									}
+								}
+								if(val.length==0){
+									this.Prompt='请选择添加内容';
+									$('#Prompt').modal('show');
+									return
+								}
+							}else{
+								var obj=new Object();
+									obj.menuType='{$type}';
+									obj.parentId=this.parentId;
+									obj.DisplayName=this.CustomName;
+									obj.Formerly='';
+									obj.type=2;
+									obj.url=this.CustomUrl;
+									obj.pageId='';
+									obj.sort='';
+								val.push(obj)
+								if(val.length==0){
+									this.Prompt='请填写内容';
+									$('#Prompt').modal('show');
+									return
+								}
+							}
+							$('#details').modal('hide');
+//							console.log(val)
+							ajax_post('{:url("admin/post/addMenu")}',{'data':val},addMenuR)
+						},
+						edit:function(x){
+							console.log(x)
+						},
+						sub_1:function(){				//修改
+							$('#modify').modal('hide');
+							ajax_post('{:url("admin/post/updatemenu")}',this.modifyObj,modifyR)
+						},
+						Determine:function(){
+//							反向递归
+							var obj=new Object();
+								obj.data=ReverseRecursion([this.modifyObj],'children');
+							$('#Delete').modal('hide');
+							ajax_post('{:url("admin/post/deleteMenu")}',obj,modifyR)
+						}
+					}
+				});
+				
+				//反向递归
+//				var val=[];
+				
+				function ReverseRecursion(obj,k){
+					var a=[];
+					function b(val,obj,k){
+						for(var i=0;i<obj.length;i++){
+							val.push(obj[i]);	
+							if(obj[i][k]){
+								b(val,obj[i][k],k)
+							}
+						}
+						return val;
+					}
+					b(a,obj,k);
+					return a;
+				}
+				
+				
+				
+				
+				function modifyR(x){
+					console.log(x)
+					if(!isNaN(x)){
+						menuList();
+						noParentList();
+					}else{
+						content.Prompt='系统错误！请联系管理员！';
+						$('#Prompt').modal('show');
+					}
+				}
+				
+				//展开收起
+				$('.digui').on('click','.open_1',function(){
+					if($(this).parent().siblings().length>0){
+						if($(this).is('.glyphicon-plus')){
+							$(this).removeClass('glyphicon-plus');
+							$(this).addClass('glyphicon-minus')
+						}else{
+							$(this).addClass('glyphicon-plus');
+							$(this).removeClass('glyphicon-minus')
+						}
+						$(this).parent().siblings().toggle();
+					}
+				})
+				
+				//获取所有菜单
+				function menuList(){
+					var obj=new Object();
+						obj.menuType='{$type}';
+						obj.parentId='';
+					ajax_post('{:url("admin/post/getMenu")}',obj,menuListR)
+				}
+				menuList();
+				function menuListR(x){
+					var x=JSON.parse(x)
+					content.menuList=x
+					console.log(x)
+				}
+				//获取无父级菜单
+				function noParentList(){
+					var obj=new Object();
+						obj.menuType='{$type}';
+						obj.parentId=0;
+					ajax_post('{:url("admin/post/getMenu")}',obj,noParentListR)
+				}
+				noParentList()
+				function noParentListR(x){
+					var x=JSON.parse(x)
+					content.noParentList=x;
+					
+				}
+				
+				
+				function addMenuR(x){
+					console.log(x)
+					menuList();
+					noParentList()
+				}
+				
+				
+				//获取page页面
+				function getpage(){
+					var obj=new Object();
+						obj.type=2;
+						obj.screen='';
+						obj.pageIndex=content.pageIndex;
+						obj.pageSize=content.pageSize;
+					ajax_post('{:url("admin/post/getPage")}',obj,getpageR)
+				}
+				getpage()
+				function getpageR(x){
+					var x=JSON.parse(x)
+					for(var i=0;i<x.list.length;i++){
+						x.list[i].checked=false;
+						x.list[i].DisplayName=x.list[i].title
+					}
+					content.pageList=x.list;
+					content.pageing=x.page
+				}
+			
+			
+			function  editType(x){
+				console.log(x)
+				if(!isNaN(x)){
+					getType();
+				}else{
+					content.Prompt='设置失败！请联系管理员！'
+					$('#Prompt').modal('show')
+				}
+			}
+			
+
+			
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

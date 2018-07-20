@@ -1,0 +1,53 @@
+
+.twonav{
+	background-color: #91d22b;
+}
+.twonav>ul{
+	max-width: 1200px;
+	margin: 0px auto;
+	
+}
+.twonav>ul>li:not(.cb){
+	float: left;
+	width: 20%;
+	text-align: center;
+	font-size: 16px;
+	position: relative;
+	border-left: 1px solid rgba(255, 255, 255, 0.3);
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+}
+.twonav>ul>li:nth-last-child(2){
+	border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+.twonav>ul a{
+	color: #FFFFFF;
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 40px 0px 40px;
+}
+.twonav>ul>li.active{
+	background-color: rgba(61, 129, 0, 0.3);
+	border: none;
+}
+.twonav>ul>li.active+li{
+	border-left: none;
+}
+.twonav>ul>li:hover{
+	background-color: rgba(61, 129, 0, 0.3);
+}
+.twonav>ul>li:not(.cb):after{
+	left: 0px;
+}
+.twonav>ul>li:not(.cb):before{
+	right: 0px;
+}
+.twonav>ul>li img{
+	display: block;
+	height: 46px;
+	margin: 0px auto 12px;
+}

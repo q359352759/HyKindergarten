@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge,IE=11,IE=10,IE=9,IE=8"/>
+		<meta http-equiv="expires" content="0" /> 
+		<meta http-equiv="Pragma" content="no-cache" />
+		
+		<title>众联云海后台管理系统</title>
+		<!-- Tell the browser to be responsive to screen width -->
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<!-- Bootstrap 3.3.6 -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css">
+		<!-- Font Awesome -->
+		<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/font-awesome/css/font-awesome.css">
+			
+		<!-- Ionicons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+		<!-- Theme style -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/dist/css/AdminLTE.min.css">
+		<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/dist/css/skins/_all-skins.min.css">
+			
+		<style type="text/css">
+			.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+				vertical-align: middle;
+			}
+			.img{
+				width: 50px;
+				height: 50px;
+				position: relative;
+				background: #EEEEEE;
+			}
+			.img>img{
+				max-height: 100%;
+				max-width: 100%;
+				position: absolute;
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				margin: auto;
+			}
+			
+			/*详情图片*/
+			.detailsImg{
+				height: 300px;
+				background: #EEEEEE;
+				position: relative;
+			}
+			.detailsImg>img{
+				max-height: 100%;
+				max-width: 100%;
+				position: absolute;
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				margin: auto;
+			}
+			.detailsImg:empty:after{
+				width: 238px;
+			    height: 50px;
+			    content: '点击选择图片';
+			    font-size: 38px;
+			    position: absolute;
+			    top: 0px;
+			    left: 0px;
+			    bottom: 0px;
+			    right: 0px;
+			    margin: auto;
+			    color: #9c9c9c;
+			}
+			
+			/*图片放大*/
+			.enlargeImg{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0px;
+				left: 0px;
+				background: rgba(0,0,0,0.3);
+				z-index: 1031;
+				display: none;
+			}
+			.enlargeImg>div{
+				width: 40%;
+				height: 40%;
+				background:  rgba(0,0,0,0.5);
+				margin: auto;
+				position: absolute;
+			    top: 0px;
+			    bottom: 0px;
+			    left: 0px;
+			    right: 0px;
+			}
+			.enlargeImg>div>img{
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+		</style>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+	</head>
+
+	<body class="hold-transition skin-blue sidebar-mini">
+		<div class="wrapper">
+			
+			<!--引入导航-->
+			{include file="index::Navigation" /}
+			
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<h1>
+						{$typeNme[$type]}
+				   	</h1>
+					<ol class="breadcrumb">
+				        <li><a href="javascript:;"><i class="fa fa-dashboard"></i>{$typeNme[$type]}</a></li>
+				    </ol>
+				</section>
+				
+				<!--内容-->
+				<section class="content">
+					<div class="box">
+						<div class="box-header"><button v-on:click="DisplayDetails(0)" class="btn btn-info pull-right">添加</button></div>
+						<div class="box-body" style="min-height: 300px;">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>排序</th>
+										<th>{$type==2 ? '公司名称':'名称'}</th>
+										<th>{$type==2 ? '公司Logo':'封面图/小图标'}</th>
+										<th style="width: 200px;">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="x in list">
+										<td>{{x.sort}}</td>
+										<td>{{x.name}}</td>
+										<td>
+											<div v-on:click="enlargeImg(x)" v-if="x.picture!=''" class="img">
+												<img :src="'__UPLOAD__/'+x.picture"/>
+											</div>
+										</td>
+										<td>
+											<button v-on:click="DisplayDetails(x)" class="btn btn-sm btn-info">修改</button>
+											<button v-on:click="displayDelete(x)" class="btn btn-sm btn-danger">删除</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					
+					<!--详情弹出框-->
+					<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					                <h4 class="modal-title" id="myModalLabel">详情</h4>
+					            </div>
+					             
+					            <form @submit.prevent="sub()">
+						            <div class="modal-body">
+						            	<input type="text" class="thisId hidden" v-model="detailsObj.Id" name="" id="" value="" />
+						            	<div class="form-group">
+						            		<label>{$type==2 ? '公司Logo':'图标/封面'}</label>
+						            		<div class="detailsImg"></div>
+						            	</div>
+						            	<div class="form-group">
+						            		<label>{$type==2 ? '公司名称':'名称'}</label>
+						            		<input type="text" class="form-control" v-model="detailsObj.name" name="" id="" value="" />
+						            	</div>
+						            	<div class="form-group">
+						            		<label>简介（建议不超过两行）</label>
+						            		<textarea class="form-control" v-model="detailsObj.introduce" rows="" cols="" placeholder="建议不超过2行"></textarea>
+						            	</div>
+						            	<div class="form-group">
+						            		<label>排序</label>
+						            		<input type="number" v-model="detailsObj.sort" class="form-control" name="" id="" value="" />
+						            	</div>
+						            	<div class="form-group {$type==4 ? '' :'hidden'}">
+						            		<label>链接地址</label>
+						            		<input type="text" v-model="detailsObj.url" class="form-control" name="" id="" value="" />
+						            	</div>
+						            </div>
+						            <div class="modal-footer">
+						                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						                <button type="submit" class="btn btn-primary">确定</button>
+						            </div>
+					            </form>
+					        </div><!-- /.modal-content -->
+					    </div><!-- /.modal -->
+					</div>
+					
+					<!--提示-->
+					<div class="modal fade" id="Prompt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					                <h4 class="modal-title" id="myModalLabel">提示</h4>
+					            </div>
+					            <div class="modal-body">{{Prompt}}</div>
+					            <!--<div class="modal-footer">
+					                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					                <button type="button" class="DetermineDel btn btn-primary">确定</button>
+					            </div>-->
+					        </div><!-- /.modal-content -->
+					    </div><!-- /.modal -->
+					</div>
+					
+					<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					                <h4 class="modal-title" id="myModalLabel">提示</h4>
+					            </div>
+					            <div class="modal-body">确定删除？</div>
+					            <div class="modal-footer">
+					                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					                <button type="button" v-on:click="Determine()" class="btn btn-primary">确定</button>
+					            </div>
+					        </div><!-- /.modal-content -->
+					    </div><!-- /.modal -->
+					</div>
+					
+					<div class="enlargeImg" v-on:click="enlargeImg_hide">
+						<div>
+							<img v-if="detailsObj.picture && detailsObj.picture!=''" :src="'__UPLOAD__/'+detailsObj.picture"/>
+						</div>
+					</div>
+					
+				</section>
+				<!-- /.content -->
+			</div>
+			
+			{include file="index::footer" /}
+			
+			<div class="file hidden">
+				<input type="file" accept="image/*" name="" id="" value="" />
+			</div>
+
+			
+			<div class="control-sidebar-bg"></div>
+		</div>
+		<!-- ./wrapper -->
+		
+		
+		<!-- jQuery 2.2.3 -->
+		<!-- jQuery UI 1.11.4 -->
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+		<script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.min.js"></script>
+		
+		<script src="__PUBLIC__/plugins/dist/js/app.min.js"></script>
+		<script src="__PUBLIC__/plugins/vue/vue.js"></script>
+		<script type="text/javascript">
+			
+			function ajax_post(u,d,f){
+				$.ajax({
+					type:"post",
+					url:u,
+					data:d,
+					async:true,
+					success:function(x){
+						f(x)
+					}
+				});
+			}
+			var type='{$type}';
+			var content=new Vue({
+					el:'.content',
+					data:{
+						list:[],
+						detailsObj:{},					//弹出框详情
+						Prompt:'',
+						DeleteObj:{}					//待删除对象
+					},
+					methods:{
+						DisplayDetails:function(x){			//添加
+							this.detailsObj={};
+							this.detailsObj.type=type;
+							if(x==0){
+								$('.detailsImg').html('');
+								$('#details').modal('show');
+							}else{
+								x.base64='';
+								for(var k in x){
+									this.detailsObj[k]=x[k]
+								}
+								if(x.picture!=''){
+									$('.detailsImg').html('<img src="__UPLOAD__/'+x.picture+'"/>');
+								}else{
+									$('.detailsImg').html('');
+								}
+								$('#details').modal('show');
+							}
+						},
+						sub:function(){						//提交添加或修改
+							var obj=this.detailsObj;
+							console.log(obj)
+							$('#details').modal('hide');
+							ajax_post('{:url("admin/post/editType")}',obj,editType);
+						},
+						displayDelete:function(x){			//弹出删除提示框
+							this.DeleteObj=x
+							$('#Delete').modal('show')
+						},
+						Determine:function(){				//点击删除
+							$('#Delete').modal('hide')
+							ajax_post('{:url("admin/post/deleteType")}',this.DeleteObj,editType)
+						},
+						enlargeImg:function(x){				//图片放大
+							this.detailsObj=x
+							$('.enlargeImg').show();
+						},
+						enlargeImg_hide:function(){
+							$('.enlargeImg').hide();
+						}
+					}
+				});
+			
+			
+			
+			function  editType(x){
+				console.log(x)
+				if(!isNaN(x)){
+					getType();
+				}else{
+					content.Prompt='设置失败！请联系管理员！'
+					$('#Prompt').modal('show')
+				}
+			}
+			//获取数据
+			function getType(){
+				var obj={'type':type};
+				ajax_post('{:url("admin/post/getType")}',obj,getTypeR)
+			}
+			getType();
+			function getTypeR(x){
+				content.list=JSON.parse(x);
+			}
+
+			//点击选择图片
+			$('.detailsImg').click(function(){
+				$('.file').html('<input type="file" accept="image/*" name="" id="" value="" />');
+				$('.file').children().click();
+			})
+			//选择图片
+			$('.file').on('change','input',function(){
+				var this_1=$(this);
+				var file01=$(this)[0].files[0];
+				if(!file01) return;
+				var type=file01.type.substring(0,file01.type.indexOf('/'));
+				if(type!='image'){
+						
+				}else{
+					files=new FileReader();
+					files.readAsDataURL(file01)
+					files.onload=function(e){
+						var fil01 = e.target.result;
+						var pos = fil01.indexOf("4") + 2;
+						$('.detailsImg').html('<img src="'+fil01+'"/>');
+						content.detailsObj.base64=fil01;
+					}
+				}
+			})
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

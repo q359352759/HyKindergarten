@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+				<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<!--<meta name="renderer" content="webkit" />-->
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge,IE=11,IE=10,IE=9,IE=8"/>
+		<meta http-equiv="expires" content="0" /> 
+		<meta http-equiv="Pragma" content="no-cache" />
+		
+		<title>花样幼儿园</title>
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		
+		<!--<link rel="stylesheet" type="text/css" href="__PUBLIC__/fontclass/iconfont.css" />-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/bootstrap/css/bootstrap.css" />
+		<!--字体-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/fontClass/iconfont.css" />
+		<!--顶部-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/nav.css?a=3" />
+		
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/education.css?a=3" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/footer.css?a=3" />
+		
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/swiper/css/swiper.css"/>
+		
+		<script src="__PUBLIC__/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/twonav.css"/>
+		
+	</head>
+	<body>
+		{include file="index::nav" /}
+		
+		<div class="banner">
+			<img src="__PUBLIC__/image/park.png"/>
+		</div>
+		
+		<div Id="active"></div>
+		
+		<div class="twonav">
+			<ul>
+				{volist name="schoolTypeList" id="schoolObj"}
+				<li class="{$schoolId==$schoolObj.Id ? 'active':''}">
+					<a href="{:url('index/index/education')}/{$thisType}/{$schoolObj.Id}#active">
+						<img src="__UPLOAD__/{$schoolObj.picture}"/>{$schoolObj.name}
+					</a>
+				</li>
+				{/volist}
+				<li class="cb"></li>
+			</ul>
+		</div>
+		<script type="text/javascript">
+			console.log({:json_encode($educationList)})
+		</script>
+		
+		{if condition="$thisType%5==1 || $thisType%5==3"}
+		
+		<div class="box_2">
+			<ul class="header_1">
+				<li>{$educationTypeList[$thisType-1]['name']}</li>
+				<li>简介</li>
+			</ul>
+			{volist name="educationList.list" id="educationObj"}
+			<a href="{:url('index/index/details')}/{$educationObj.Id}">
+				<ul>
+					<li>{$educationObj.title}</li>
+					<li>{$educationObj.introduce}</li>
+				</ul>
+			</a>
+			{/volist}
+		</div>
+		
+		
+		{elseif condition="$thisType%5==2"}
+		
+		<ul class="box_3">
+			{volist name="educationList.list" id="educationObj"}
+			<li>
+				<a href="{:url('index/index/details')}/{$educationObj.Id}">
+					<div class="img_1"><img src="__UPLOAD__/{$educationObj.CoverMap}"/></div>
+					<div class="cont_1">
+						<div class="title_1">{$educationObj.title}</div>
+						<div class="text_1">{$educationObj.introduce}</div>
+					</div>
+				</a>
+			</li>
+			{/volist}
+		</ul>
+		
+		{elseif condition="$thisType%5==4"}
+		
+			<ul class="box_4">
+				{volist name="educationList.list" id="educationObj"}
+				<li>
+					<a href="{:url('index/index/details')}/{$educationObj.Id}">
+						<div class="title_1">{$educationObj.title}</div>
+						<div class="time_1">{:date('Y-m-d',strtotime($educationObj.CreationTime))}</div>
+						<div class="text_1">{$educationObj.introduce}</div>
+					</a>
+				</li>
+				{/volist}
+			</ul>
+			
+		{elseif condition="$thisType%5==0"}
+		
+		<ul class="box_5">
+			{volist name="educationList.list" id="educationObj" key="k"}
+			<li>
+				<a href="{:url('index/index/details')}/{$educationObj.Id}">
+					<div class="number_1">{$k<10 ? '0'.$k : $k}</div>
+					<div class="text_1">{$educationObj.title}</div>
+				</a>
+			</li>
+			{/volist}
+		</ul>
+		
+		{/if}
+		
+		<ul class="paging">
+			{if condition="$educationList.page.upper!=''"}
+		    <li><a href="{:url('index/index/education')}/{$thisType}/{$schoolId}/{$educationList.page.upper}#active">&laquo;</a></li>
+			{/if}
+			{if condition="count($educationList.page.page) gt 1"}
+				{volist name="educationList.page.page" id="pageObj"}
+					{if condition="$pageIndex==$pageObj"}
+			    	<li class="active"><a href="javascript:;">{$pageObj}</a></li>
+			    	{else}
+			    	<li class=""><a href="{:url('index/index/education')}/{$thisType}/{$schoolId}/{$pageObj}#active">{$pageObj}</a></li>
+			    	{/if}
+			    {/volist}
+			{/if}
+			{if condition="$educationList.page.lower!=''"}
+		    <li><a href="{:url('index/index/education')}/{$thisType}/{$schoolId}/{$educationList.page.lower}#active">&raquo;</a></li>
+		    {/if}
+		</ul>
+		
+		
+		{include file="index::footer" /}
+	</body>
+</html>

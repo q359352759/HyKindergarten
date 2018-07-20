@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge,IE=11,IE=10,IE=9,IE=8"/>
+		<meta http-equiv="expires" content="0" /> 
+		<meta http-equiv="Pragma" content="no-cache" />
+		
+		<title>众联云海后台管理系统</title>
+		<!-- Tell the browser to be responsive to screen width -->
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<!-- Bootstrap 3.3.6 -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css">
+		<!-- Font Awesome -->
+		<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/font-awesome/css/font-awesome.css">
+			
+		<!-- Ionicons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/plugins/select2/select2.min.css">
+		<!-- Theme style -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/dist/css/AdminLTE.min.css">
+		<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/dist/css/skins/_all-skins.min.css">
+		
+		<!--时间-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.css"/>
+		
+		
+		<style type="text/css">
+			.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+				vertical-align: middle;
+			}
+			.img{
+				width: 50px;
+				height: 50px;
+				position: relative;
+				background: #EEEEEE;
+			}
+			.img>img{
+				max-height: 100%;
+				max-width: 100%;
+				position: absolute;
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				margin: auto;
+			}
+			
+			/*详情图片*/
+			.detailsImg{
+				height: 300px;
+				background: #EEEEEE;
+				position: relative;
+			}
+			.detailsImg>img{
+				max-height: 100%;
+				max-width: 100%;
+				position: absolute;
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				margin: auto;
+			}
+			.detailsImg:empty:after{
+				width: 238px;
+			    height: 50px;
+			    content: '点击选择图片';
+			    font-size: 38px;
+			    position: absolute;
+			    top: 0px;
+			    left: 0px;
+			    bottom: 0px;
+			    right: 0px;
+			    margin: auto;
+			    color: #9c9c9c;
+			}
+			
+			/*图片放大*/
+			.enlargeImg{
+				position: fixed;
+				width: 100%;
+				height: 100%;
+				top: 0px;
+				left: 0px;
+				background: rgba(0,0,0,0.3);
+				z-index: 1031;
+				display: none;
+			}
+			.enlargeImg>div{
+				width: 40%;
+				height: 40%;
+				background:  rgba(0,0,0,0.5);
+				margin: auto;
+				position: absolute;
+			    top: 0px;
+			    bottom: 0px;
+			    left: 0px;
+			    right: 0px;
+			}
+			.enlargeImg>div>img{
+				width: 100%;
+				height: 100%;
+				object-fit: contain;
+			}
+			.title_1{
+				max-width: 200px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.introduce_1{
+				max-width: 400px;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+		</style>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+	</head>
+
+	<body class="hold-transition skin-blue sidebar-mini">
+		<div class="wrapper">
+			
+			<!--引入导航-->
+			{include file="index::Navigation" /}
+			
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<h1>
+						{$typeNme[$type]}
+				   	</h1>
+					<ol class="breadcrumb">
+				        <li><a href="javascript:;"><i class="fa fa-dashboard"></i>{$typeNme[$type]}</a></li>
+				    </ol>
+				</section>
+				
+				<!--内容-->
+				<section class="content">
+					<div class="box">
+						<div class="box-header">
+							<select name="" v-model="schoolId" v-on:change="changeSchool()" class="form-control pull-left" style="width: 200px;">
+								<option value="0">全部</option>
+								{volist name="schoolList" id="typeObj"}
+									<option value="{$typeObj.Id}">{$typeObj.name}</option>
+								{/volist}
+							</select>
+							<button v-on:click="DisplayDetails(0)" class="btn btn-info pull-right">添加</button>
+						</div>
+						<div class="box-body" style="min-height: 300px;">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>排序</th>
+										<th>标题</th>
+										<th>描述</th>
+										<th>所属学校</th>
+										<th>时间</th>
+										<th style="width: 200px;">操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="x in list">
+										<td>{{x.sort}}</td>
+										<td><div class="title_1">{{x.title}}</div></td>
+										<td><div class="introduce_1">{{x.introduce}}</div></td>
+										<td><span v-for="y in x.schoolList">{{y.name}}；</span></td>
+										<td>{{x.CreationTime}}</td>
+										<td>
+											<button v-on:click="DisplayDetails(x)" class="btn btn-sm btn-info">修改</button>
+											<button v-on:click="displayDelete(x)" class="btn btn-sm btn-danger">删除</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="box-footer" v-if="page.page.length>1">
+			              	<ul class="pagination pagination-sm no-margin pull-right">
+			                	<li v-on:click="changPage(page.upper)"><a href="javascript:;">«</a></li>
+			                	<li v-on:click="changPage(x)" v-bind:class="{'active':x==pageIndex}" v-for="x in page.page"><a href="javascript:;">{{x}}</a></li>
+			                	<li v-on:click="changPage(page.lower)"><a href="javascript:;">»</a></li>
+			              	</ul>
+			            </div>
+					</div>
+					
+					<!--详情弹出框-->
+					<div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					                <h4 class="modal-title" id="myModalLabel">详情</h4>
+					            </div>
+					             
+					            <form @submit.prevent="sub()">
+						            <div class="modal-body">
+						            	<input type="text" class="thisId hidden" v-model="detailsObj.Id" name="" id="" value="" />
+						            	<div class="form-group hidden">
+						            		<label>{$type==2 ? '公司Logo':'图标/封面'}</label>
+						            		<div class="detailsImg"></div>
+						            	</div>
+						            	
+						            	<div class="form-group">
+						            		<label>所属学校</label>
+						            		<select name="" class="school_1 form-control" multiple="multiple">
+												{volist name="schoolList" id="typeObj"}
+													<option selected="" value="{$typeObj.Id}">{$typeObj.name}</option>
+												{/volist}
+											</select>
+						            	</div>
+						            	<div class="form-group">
+						            		<label>标题</label>
+						            		<input type="text" class="form-control" v-model="detailsObj.title" name="" id="" value="" />
+						            	</div>
+						            	<div class="form-group">
+						            		<label>描述</label>
+						            		<textarea class="form-control" v-model="detailsObj.introduce" rows="" cols="" placeholder="建议不超过2行"></textarea>
+						            	</div>
+						            	<div class="form-group">
+						            		<label>时间</label>
+						            		<input type="text"  v-model="detailsObj.CreationTime" class="form-control time_1" name="" id="" value="" />
+						            	</div>
+						            	<div class="form-group">
+						            		<label>排序</label>
+						            		<input type="number" v-model="detailsObj.sort" class="form-control" name="" id="" value="" />
+						            	</div>
+						            </div>
+						            <div class="modal-footer">
+						                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+						                <button type="submit" class="btn btn-primary">确定</button>
+						            </div>
+					            </form>
+					        </div><!-- /.modal-content -->
+					    </div><!-- /.modal -->
+					</div>
+					
+					<!--提示-->
+					<div class="modal fade" id="Prompt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					                <h4 class="modal-title" id="myModalLabel">提示</h4>
+					            </div>
+					            <div class="modal-body">{{Prompt}}</div>
+					            <!--<div class="modal-footer">
+					                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					                <button type="button" class="DetermineDel btn btn-primary">确定</button>
+					            </div>-->
+					        </div><!-- /.modal-content -->
+					    </div><!-- /.modal -->
+					</div>
+					
+					<div class="modal fade" id="Delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					    <div class="modal-dialog">
+					        <div class="modal-content">
+					            <div class="modal-header">
+					                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					                <h4 class="modal-title" id="myModalLabel">提示</h4>
+					            </div>
+					            <div class="modal-body">确定删除？</div>
+					            <div class="modal-footer">
+					                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					                <button type="button" v-on:click="Determine()" class="btn btn-primary">确定</button>
+					            </div>
+					        </div><!-- /.modal-content -->
+					    </div><!-- /.modal -->
+					</div>
+					
+					<div class="enlargeImg" v-on:click="enlargeImg_hide">
+						<div>
+							<img v-if="detailsObj.picture && detailsObj.picture!=''" :src="'__UPLOAD__/'+detailsObj.picture"/>
+						</div>
+					</div>
+					
+				</section>
+				<!-- /.content -->
+			</div>
+			
+			{include file="index::footer" /}
+			
+			<div class="file hidden">
+				<input type="file" accept="image/*" name="" id="" value="" />
+			</div>
+
+			
+			<div class="control-sidebar-bg"></div>
+		</div>
+		<!-- ./wrapper -->
+		
+		
+		<!-- jQuery 2.2.3 -->
+		<!-- jQuery UI 1.11.4 -->
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+
+		<script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.min.js"></script>
+		
+		<script src="__PUBLIC__/plugins/select2/select2.full.min.js"></script>
+		<!--时间-->
+		<script src="__PUBLIC__/plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="__PUBLIC__/plugins/dist/js/app.min.js"></script>
+		<script src="__PUBLIC__/plugins/vue/vue.js"></script>
+		<script type="text/javascript">
+			
+			function ajax_post(u,d,f){
+				$.ajax({
+					type:"post",
+					url:u,
+					data:d,
+					async:true,
+					success:function(x){
+						f(x)
+					}
+				});
+			}
+			var type='{$type}';
+			var content=new Vue({
+					el:'.content',
+					data:{
+						pageIndex:1,
+						pageSize:10,
+						schoolId:0,
+						list:[],
+						detailsObj:{},					//弹出框详情
+						Prompt:'',
+						DeleteObj:{},					//待删除对象
+						page:{"upper":"","page":[],"lower":""},
+					},
+					methods:{
+						changPage:function(x){						//分页
+							if(x!=''){
+								this.pageIndex=x
+								getType();
+							}
+						},
+						changeSchool:function(){
+							getType();
+						},
+						DisplayDetails:function(x){			//添加
+							this.detailsObj={};
+							this.detailsObj.type=type;
+							if(x==0){
+								$('.school_1').val([]).trigger("change");
+								$('.detailsImg').html('');
+								$('#details').modal('show');
+							}else{
+								x.base64='';
+								for(var k in x){
+									this.detailsObj[k]=x[k]
+								}
+//								if(x.picture!=''){
+//									$('.detailsImg').html('<img src="__UPLOAD__/'+x.picture+'"/>');
+//								}else{
+//									$('.detailsImg').html('');
+//								}
+								var schoolList=[];
+								for(var i=0;i<x.schoolList.length;i++){
+									schoolList.push(x.schoolList[i].Id)
+								}
+								
+								$('.school_1').val(schoolList).trigger("change");
+								$('#details').modal('show');
+							}
+						},
+						sub:function(){						//提交添加或修改
+							var obj=this.detailsObj;
+								obj.type='{$type}';
+								obj.school=$('.school_1').val();
+								$('#details').modal('hide');
+							ajax_post('{:url("admin/post/editPage")}',obj,editType);
+						},
+						displayDelete:function(x){			//弹出删除提示框
+							this.DeleteObj=x
+							$('#Delete').modal('show')
+						},
+						Determine:function(){				//点击删除
+							$('#Delete').modal('hide')
+							ajax_post('{:url("admin/post/deletePage")}',this.DeleteObj,editType)
+						},
+						enlargeImg:function(x){				//图片放大
+							this.detailsObj=x
+							$('.enlargeImg').show();
+						},
+						enlargeImg_hide:function(){
+							$('.enlargeImg').hide();
+						}
+					}
+				});
+			
+			$('.time_1').datetimepicker({
+				language: 'zh-CN',
+				format:'yyyy-mm-dd hh:mm',
+		//		startView:4,
+		//		minView:4,
+				autoclose: 1
+			}).on('hide', function (ev) {
+		      	var time = $(".time_1").val();
+		      	content.detailsObj.CreationTime=time
+		    });
+			
+			
+			$("#details").on("shown.bs.modal", function(){
+            	$(".school_1").select2();
+			})
+//			$('.school').val([1,2]).trigger("change");
+			
+
+
+
+
+			function  editType(x){
+				console.log(x)
+				if(!isNaN(x)){
+					getType();
+				}else{
+					content.Prompt='设置失败！请联系管理员！'
+					$('#Prompt').modal('show')
+				}
+			}
+			//获取数据
+			function getType(){				
+				var obj=new Object();
+					obj.type=type;
+					obj.screen='';
+					obj.pageIndex=content.pageIndex;
+					obj.pageSize=content.pageSize;
+					obj.schoolId=content.schoolId;
+				ajax_post('{:url("admin/post/getPage")}',obj,getpageR)
+			}
+			
+			
+			
+			getType();
+			function getpageR(x){
+				var x=JSON.parse(x);
+				console.log(x)
+				
+				content.list=x.list;
+				content.page=x.page
+			}
+
+			//点击选择图片
+			$('.detailsImg').click(function(){
+				$('.file').html('<input type="file" accept="image/*" name="" id="" value="" />');
+				$('.file').children().click();
+			})
+			//选择图片
+			$('.file').on('change','input',function(){
+				var this_1=$(this);
+				var file01=$(this)[0].files[0];
+				if(!file01) return;
+				var type=file01.type.substring(0,file01.type.indexOf('/'));
+				if(type!='image'){
+						
+				}else{
+					files=new FileReader();
+					files.readAsDataURL(file01)
+					files.onload=function(e){
+						var fil01 = e.target.result;
+						var pos = fil01.indexOf("4") + 2;
+						$('.detailsImg').html('<img src="'+fil01+'"/>');
+						content.detailsObj.base64=fil01;
+					}
+				}
+			})
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

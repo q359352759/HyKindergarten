@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>登录界面</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+		<link rel="stylesheet" href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="__PUBLIC__/pc/fontclass/iconfont.css">
+		<style>
+			body {
+				font-family: "微软雅黑";
+				font-size: 14px;
+				background:url(__PUBLIC__/image/login.jpg) no-repeat;
+			}
+			
+			.wrap1 {
+				color: #fff;
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				margin: auto
+			}
+			/*把整个屏幕真正撑开--而且能自己实现居中*/
+			
+			.main_content {
+				/*background: url(images/main_bg.png) repeat;*/
+				background: rgba(0,0,0,0.7);
+				margin-left: auto;
+				margin-right: auto;
+				text-align: left;
+				float: none;
+				border-radius: 8px;
+			}
+			
+			.form-group {
+				position: relative;
+			}
+			
+			.login_btn {
+				display: block;
+				background: #3872f6;
+				color: #fff;
+				font-size: 15px;
+				width: 100%;
+				line-height: 50px;
+				border-radius: 3px;
+				border: none;
+			}
+			
+			.login_input {
+				width: 100%;
+				border: 1px solid #3872f6;
+				border-radius: 3px;
+				line-height: 40px;
+				padding: 2px 5px 2px 30px;
+				background: none;
+			}
+			
+			.iconfont {
+				position: absolute;
+				bottom: 15px;
+				top: 10px;
+				left: 10px;
+				font-size: 18px;
+				color: #3872f6;
+			}
+			
+			.font16 {
+				font-size: 16px;
+			}
+			.font38{
+				font-size: 38px;
+			}
+			.mg-t20 {
+				margin-top: 20px;
+			}
+			
+			@media (min-width:200px) {
+				.pd-xs-20 {
+					padding: 20px;
+				}
+			}
+			
+			@media (min-width:768px) {
+				.pd-sm-50 {
+					padding: 15px 50px 50px;
+				}
+			}
+			
+			#grad {
+				background: -webkit-linear-gradient(#4990c1, #52a3d2, #6186a3);
+				/* Safari 5.1 - 6.0 */
+				background: -o-linear-gradient(#4990c1, #52a3d2, #6186a3);
+				/* Opera 11.1 - 12.0 */
+				background: -moz-linear-gradient(#4990c1, #52a3d2, #6186a3);
+				/* Firefox 3.6 - 15 */
+				background: linear-gradient(#4990c1, #52a3d2, #6186a3);
+				/* 标准的语法 */
+			}
+		</style>
+
+	</head>
+
+	<body>
+		<!--height:450px;-->
+		<div class="container wrap1" style="height:350px;">
+			<!--<h2 class="mg-b20 text-center">众联云海</h2>-->
+			<div class="col-sm-8 col-md-5 center-auto pd-sm-50 pd-xs-20 main_content">
+				<p class="text-center font38">华阳幼儿园</p>
+				<form class="log">
+					<div class="form-group mg-t20">
+						<i class="icon iconfont icon-gerenyonghutouxiang2"></i>
+						<input type="text" required="" maxlength="20" pattern=".*[^ ].*" class="login_input Account" placeholder="请输入用户名" />
+					</div>
+					<div class="form-group mg-t20">
+						<i class="icon iconfont icon-ai-password"></i>
+						<input type="password" required="" maxlength="20" pattern=".*[^ ].*" class="login_input Password" placeholder="请输入密码" />
+					</div>
+					<div class="checkbox mg-b25">
+						<label>
+                            <input type="checkbox" class="RememberMe"/>记住我的登录信息
+                        </label>
+					</div>
+					<button type="submit" class="login_btn">登 录</button>
+				</form>
+			</div>
+		</div>
+		
+		<div aria-hidden="true" id="myModal_1" aria-labelledby="myModalLabel" role="dialog" tabindex="-1"  class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">提示</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>账号或密码错误</p>
+                    </div>
+                    <!--<div class="modal-footer">
+                        <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                        <button class="btn btn-primary" type="button">Submit</button>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+		
+		<script src="__PUBLIC__/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			$('.log').submit(function(){
+				var obj=new Object();
+					obj.Account=$('.Account').val();
+					obj.Password=$('.Password').val();
+					//记住我
+					var	RememberMe=$('.RememberMe').prop('checked');
+					if(RememberMe){
+						var obj={'Account':$('.Account').val(),'Password':$('.Password').val()}
+						localStorage.RememberMe180103=JSON.stringify(obj)
+					}else{
+						localStorage.removeItem('RememberMe180103');
+					}
+					$.ajax({
+						type:"post",
+						data:obj,
+						url:"{:url('admin/post/login')}",
+						success:function(data){
+							console.log(data)
+							if(data==1){
+								window.location.href="{:url('admin/index/index')}";
+							}else{
+								$('#myModal_1').modal('show');
+							}
+						},
+						error:function(err){
+							console.log(err)
+						}
+						
+					});
+				return false;
+			})
+			
+			if(localStorage.RememberMe180103){
+		    	$('.RememberMe').prop('checked',true);
+		    	$('.RememberMe').parent().addClass('checked');
+		    	var obj=JSON.parse(localStorage.RememberMe180103);
+		    	$('.Account').val(obj.Account);
+		    	$('.Password').val(obj.Password)
+		    }
+			
+		</script>
+	</body>
+</html>

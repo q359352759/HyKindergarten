@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+				<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<!--<meta name="renderer" content="webkit" />-->
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge,IE=11,IE=10,IE=9,IE=8"/>
+		<meta http-equiv="expires" content="0" /> 
+		<meta http-equiv="Pragma" content="no-cache" />
+		
+		<title>花样幼儿园</title>
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		
+		<!--<link rel="stylesheet" type="text/css" href="__PUBLIC__/fontclass/iconfont.css" />-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/bootstrap/css/bootstrap.css" />
+		<!--字体-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/fontClass/iconfont.css" />
+		<!--顶部-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/nav.css?a=1" />
+		
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/teacher.css?a=1" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/footer.css?a=1" />
+		
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/swiper/css/swiper.css"/>
+		
+		<script src="__PUBLIC__/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/twonav.css"/>
+	</head>
+	<body>
+		{include file="index::nav" /}
+		
+		<div class="box_1">
+			<img src="__PUBLIC__/image/park.png"/>
+		</div>
+		
+		
+		<div class="twonav">
+			<ul>
+				{volist name="schoolTypeList" id="schoolObj"}
+				<li class="{$schoolId==$schoolObj.Id ? 'active':''}">
+					<a href="{:url('index/index/teacher')}/{$schoolObj.Id}">
+						<img src="__UPLOAD__/{$schoolObj.picture}"/>{$schoolObj.name}
+					</a>
+				</li>
+				{/volist}
+				<li class="cb"></li>
+			</ul>
+		</div>
+		
+		<div class="box_2">
+			<div class="img_1"><img src="__PUBLIC__/image/teacher.png"/></div>
+			<div class="name_1">园长</div>
+			<div class="title_1">华阳幼儿园院长</div>
+			<div class="text_1">为孩子选择第一所学校是您所作出的最重要的决定之一，我们理解，在这个世界上，没有任何事物能够比孩子更加珍贵，因而我们十分荣幸能够和您 一起为了孩子的未来而共同努力：
+				<br />我们将为孩子提供非凡的学习体验，独立的空间，老师的关怀与支持，让孩子们能够在不同的领域出类拔萃；温馨且适宜的学习环境，满足孩子们在社交、文化以及语言等各方面的发展需求；积极且不被打扰的氛围，
+					让每一个孩子拥有机会去释放他们与生俱来的求知欲望，去发现和探索世界；
+			</div>
+		</div>
+		
+		{volist name="teacherTypeList" id="teacherType" key="k"}
+			{if condition="$k%3==1"}
+			<div class="box_3">
+				<div class="title_1">{$teacherType.name}</div>
+				<div class="text_1">{$teacherType.introduce}</div>
+				<ul class="list_1">
+					{volist name="teacherType.list.list" id="listObj"}
+					<li><a href="{:url('index/index/details')}/{$listObj.Id}"><img src="__UPLOAD__/{$listObj.CoverMap}"/></a></li>
+					{/volist}
+				</ul>
+			</div>
+			{elseif condition="$k%3==2"}
+			<div class="box_4">
+				<div class="title_1">{$teacherType.name}</div>
+				<div class="text_1">{$teacherType.introduce}</div>
+				<ul class="list">
+					{volist name="teacherType.list.list" id="listObj" offset='0' length='3'}
+					<li>
+						<a href="{:url('index/index/details')}/{$listObj.Id}">
+							<div class="img_1">
+								<img src="__UPLOAD__/{$listObj.CoverMap}"/>
+							</div>
+							<div class="cont_1">
+								<div class="title_2">{$listObj.title}</div>
+								<div class="text_2">{$listObj.introduce}</div>
+							</div>
+						</a>
+					</li>
+					{/volist}
+				</ul>
+			</div>
+			{elseif condition="$k%3==0"}
+			<div class="box_5">
+				<div class="title_1">{$teacherType.name}</div>
+				<div class="text_1">{$teacherType.introduce}</div>
+				<div class="cont_1">
+					<div class="swiper-container box_5_list">
+						<div class="swiper-wrapper">
+							{volist name="teacherType.list.list" id="listObj" }
+						    <div class="swiper-slide" >
+						    	<a href="{:url('index/index/details')}/{$listObj.Id}" style="background-image: url('__UPLOAD__/{$listObj.CoverMap}');">
+						    		<div>
+							    		<div class="title_2">{$listObj.author}</div>
+							    		<div class="text_2">{$listObj.title}</div>
+							    	</div>
+						    	</a>
+						    </div>
+						    {/volist}
+						</div>
+						<div class="swiper-pagination"></div>
+					</div>
+					<div class="swiper-button-prev"><i class="icon iconfont icon-zuo"></i></div>
+					<div class="swiper-button-next"><i class="icon iconfont icon-you"></i></div>
+				</div>
+			</div>
+			{/if}
+		{/volist}
+		<!--<div class="box_3">
+			<div class="title_1">名师工作室</div>
+			<div class="text_1">华阳幼儿园“人本、自主、愉悦、发展”的办园理念和“四心两全三个一”的服务特色，紧紧围绕新区“学有良教、品质卓越”的教育目标，以“优化教师队伍，提升保教质量，创现代化书香幼儿园”为总体目标，着眼于幼儿的终身发展。</div>
+			<ul class="list_1">
+				<li><a href="javascript:;"><img src="__PUBLIC__/image/teacher_1.jpg"/></a></li>
+				<li><a href="javascript:;"><img src="__PUBLIC__/image/teacher_2.jpg"/></a></li>
+				<li><a href="javascript:;"><img src="__PUBLIC__/image/teacher_1.jpg"/></a></li>
+				<li><a href="javascript:;"><img src="__PUBLIC__/image/teacher_2.jpg"/></a></li>
+				<li><a href="javascript:;"><img src="__PUBLIC__/image/teacher_1.jpg"/></a></li>
+				<li><a href="javascript:;"><img src="__PUBLIC__/image/teacher_2.jpg"/></a></li>
+			</ul>
+		</div>
+
+		<div class="box_4">
+			<div class="title_1">对外交流展示</div>
+			<div class="text_1">在生态式的教育理念下，遵循幼儿自然成长规律，创造自然、自由、平等、和谐的教育环境，使幼儿园充满生命力和活力。着眼于幼儿的身体素质、社会情感、知识技能的完整培养，从而影响孩子的一生</div>
+			<ul class="list">
+				<li>
+					<a href="javascript:;">
+						<div class="img_1">
+							<img src="__PUBLIC__/image/teacher_4.jpg"/>
+						</div>
+						<div class="cont_1">
+							<div class="title_2">扎实理论功底</div>
+							<div class="text_2">苏霍姆林斯基说：教师，这是学生智力生活中的第一盏、继而也是主要的一盏指路灯；是他在激发学生的求知欲，教会他们尊重科学、文化和教育。</div>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<div class="img_1">
+							<img src="__PUBLIC__/image/teacher_3.jpg"/>
+						</div>
+						<div class="cont_1">
+							<div class="title_2">华阳幼儿园小班组阳光体育运动月暨元旦节庆祝活动</div>
+							<div class="text_2">为进一步提高幼儿身体素质，激发幼儿运动的兴趣，培养幼儿不怕寒冷、坚持锻炼的良好习惯，天府新区华阳幼儿园小班组结合实际情况开展了阳光体育运动月暨元旦节庆祝活动。小班组全体幼儿及家长共计200余人参加了此次活动。</div>
+						</div>
+					</a>
+				</li>
+				<li>
+					<a href="javascript:;">
+						<div class="img_1">
+							<img src="__PUBLIC__/image/teacher_4.jpg"/>
+						</div>
+						<div class="cont_1">
+							<div class="title_2">我运动 我健康 我快乐,华阳幼儿园大班组亲子体育游园活动</div>
+							<div class="text_2">2017年12月29日，天府新区华阳幼儿园大班组举办了“我运动、我健康、我快乐”的亲子体育游园活动，共计500余名幼儿和家长参加了此次活动。</div>
+						</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+		
+		<div class="box_5">
+			<div class="title_1">每月明星教师</div>
+			<div class="text_1">为孩子选择第一所学校是您所作出的最重要的决定之一，我们理解，在这个世界上，没有任何事物能够比孩子更加珍贵，因而我们十分荣幸能够和您 一起为了孩子的未来而共同努力：</div>
+			<div class="cont_1">
+				<div class="swiper-container box_5_list">
+					<div class="swiper-wrapper">
+					    <div class="swiper-slide" >
+					    	<a href="javascript:;" style="background-image: url('__PUBLIC__/image/teacher_1.jpg');">
+					    		<div>
+						    		<div class="title_2">王婷婷</div>
+						    		<div class="text_2">华阳东区大班教师</div>
+						    	</div>
+					    	</a>
+					    </div>
+					    <div class="swiper-slide">
+					    	<a href="javascript:;" style="background-image: url('__PUBLIC__/image/teacher_2.jpg');">
+					    		<div>
+						    		<div class="title_2">王婷婷</div>
+						    		<div class="text_2">华阳东区大班教师</div>
+						    	</div>
+					    	</a>
+					    </div>
+					    <div class="swiper-slide">
+					    	<a href="javascript:;" style="background-image: url('__PUBLIC__/image/teacher_3.jpg');">
+					    		<div>
+						    		<div class="title_2">王婷婷</div>
+						    		<div class="text_2">华阳东区大班教师</div>
+						    	</div>
+					    	</a>
+					    </div>
+					    <div class="swiper-slide">
+					    	<a href="javascript:;" style="background-image: url('__PUBLIC__/image/teacher_3.jpg');">
+					    		<div>
+						    		<div class="title_2">王婷婷</div>
+						    		<div class="text_2">华阳东区大班教师</div>
+						    	</div>
+					    	</a>
+					    </div>
+					    <div class="swiper-slide">
+					    	<a href="javascript:;" style="background-image: url('__PUBLIC__/image/teacher_4.jpg');">
+					    		<div>
+						    		<div class="title_2">王婷婷</div>
+						    		<div class="text_2">华阳东区大班教师</div>
+						    	</div>
+					    	</a>
+					    </div>
+					    <div class="swiper-slide">
+					    	<a href="javascript:;" style="background-image: url('__PUBLIC__/image/teacher.png');">
+					    		<div>
+						    		<div class="title_2">王婷婷</div>
+						    		<div class="text_2">华阳东区大班教师</div>
+						    	</div>
+					    	</a>
+					    </div>
+					</div>
+					<div class="swiper-pagination"></div>
+				</div>
+				<div class="swiper-button-prev"><i class="icon iconfont icon-zuo"></i></div>
+				<div class="swiper-button-next"><i class="icon iconfont icon-you"></i></div>
+			</div>
+		</div>-->
+		
+		{include file="index::footer" /}
+		
+		<script src="__PUBLIC__/plugins/swiper/js/swiper.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var swiper = new Swiper('.box_5_list', {
+			      	spaceBetween: 32,
+			      	slidesPerView : 4,
+//			      	loop : true,		//是否循环
+//			      	autoplay:true,		//自动播放
+//			      	pagination: {		//圆点
+//			       		el: '.swiper-pagination',
+//			        	clickable: true,
+//			      	},
+					navigation: {
+				      	nextEl: '.swiper-button-next',
+				      	prevEl: '.swiper-button-prev',
+				   	},
+			      	on:{
+					    touchStart: function(event){
+//					    	console.log('开始拖动')
+					    },
+					    slideChangeTransitionEnd:function(){
+					    	
+					    },
+					    resize: function(){
+					      //窗口变化了
+//					      	console.log($('.box_5 .swiper-slide').outerWidth())
+					      	$('.box_5 .box_5_list').outerHeight($('.box_5 .swiper-slide').outerWidth())
+					    },
+					},
+			   });
+			
+
+		</script>
+	</body>
+</html>
+			
+
+
+
+
+

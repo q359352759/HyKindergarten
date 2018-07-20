@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+				<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<!--<meta name="renderer" content="webkit" />-->
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge,IE=11,IE=10,IE=9,IE=8"/>
+		<meta http-equiv="expires" content="0" /> 
+		<meta http-equiv="Pragma" content="no-cache" />
+		
+		<title>花样幼儿园</title>
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		
+		<!--<link rel="stylesheet" type="text/css" href="__PUBLIC__/fontclass/iconfont.css" />-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/bootstrap/css/bootstrap.css" />
+		<!--字体-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/fontClass/iconfont.css" />
+		<!--顶部-->
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/nav.css?a=5" />
+		
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/index.css?a=5" />
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/pc/css/footer.css?a=4" />
+		
+		<link rel="stylesheet" type="text/css" href="__PUBLIC__/plugins/swiper/css/swiper.css"/>
+		
+		<script src="__PUBLIC__/plugins/jQuery/jquery-2.2.3.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		
+	</head>
+	<body>
+		<div class="max_box">
+			<div>
+				
+				{include file="index::nav" /}
+				
+				<div class="swiper-container1 banner">
+				    <div class="swiper-wrapper">
+				    	{volist name="banner" id="bannerObj"}
+				      	<div class="swiper-slide banner_box" style="background-image: url('__UPLOAD__/{$bannerObj.imgUrl}');"></div>
+				    	{/volist}
+				    </div>
+				    <!-- Add Pagination -->
+				    <div class="swiper-pagination"></div>
+				</div>
+				
+				<div class="box_1">
+					<div class="header_1">华阳四大园区</div>
+					<ul class="list">
+						{foreach name="schoolTypeList" item="schoolType" key="i"}
+						<li>
+							<a href="{:url('index/index/park')}/{$schoolType.Id}">
+								<img src="__UPLOAD__/{$schoolType.picture}"/>
+								<div class="title_1">{$schoolType.name}</div>
+								<div class="text_1">{$schoolType.introduce}</div>
+							</a>
+						</li>
+						{/foreach}
+					</ul>
+				</div>
+				
+				<div class="box_2">
+					<div class="header_1">教师风采</div>
+					<div class="text_1">成都市天府新区华阳幼儿园座落在天府新区华阳大道二段189号，是成都市首批优质学前教育集团。现有4个校区，分别为华阳幼儿园总园（蘑菇园）、华阳幼儿园东区(沙河分园)、华阳幼儿园西区（西寺分园）、华阳幼儿园南区（香山分园）。集团内共有教学班40个，在园幼儿1400名，教职员工220名。</div>
+					<ul class="list_1">
+						{volist name="teacherList.list" id="teacherObj"}
+						<li>
+							<a href="javascript:;">
+								<div class="img" style="background-image:url('__UPLOAD__/{$teacherObj.CoverMap}') ;"></div>
+								<div class="cont">
+									<div class="title_1">{$teacherObj.author}</div>
+									<div class="title_2">{$teacherObj.title}</div>
+									<div class="text_2">{$teacherObj.introduce}</div>
+									<div class="Star_1">
+										<div>
+											<img src="__PUBLIC__/image/星星.png"/>
+											<img src="__PUBLIC__/image/星星.png"/>
+											<img src="__PUBLIC__/image/星星.png"/>
+											<img src="__PUBLIC__/image/星星.png"/>
+											<img src="__PUBLIC__/image/星星.png"/>
+										</div>
+										<div style="width: 90%;">
+											<img src="__PUBLIC__/image/星星_1.png"/>
+											<img src="__PUBLIC__/image/星星_1.png"/>
+											<img src="__PUBLIC__/image/星星_1.png"/>
+											<img src="__PUBLIC__/image/星星_1.png"/>
+											<img src="__PUBLIC__/image/星星_1.png"/>
+										</div>
+									</div>
+								</div>
+								<div class="footer_1"></div>
+							</a>
+						</li>
+						{/volist}
+					</ul>
+					<a class="btn_1" href="{:url('index/index/teacherlist')}">了解更多</a>
+				</div>
+				
+				<div class="box_3">
+					<div class="header_1">儿童营养搭配</div>
+					<div class="text_1">3-6岁阶段，是宝宝成长发育的关键时期，对营养素的需要量也相对较高。未来星小小儿童成长牛奶营养均衡型，专为3-6岁宝宝研发，富含50种膳食营养精华，特别添加DHA藻油、优质益生元-低聚半乳糖，帮助宝宝摄取均衡营养。</div>
+					<div class="list_1" style="background-image:url('__PUBLIC__/image/box-3.png');">
+						<ul>
+							<li>
+								<a href="javascript:;">
+									<div class="title_1 pc">早餐<img src="__PUBLIC__/image/进口馆牛奶.png"/></div>
+									<div class="title_1 Mobile_1"><img src="__PUBLIC__/image/进口馆牛奶.png"/>早餐</div>
+									<div class="text_2">荤素搭配，两菜一汤，营养均衡，帮助宝宝睡眠有助孩子健康成长</div>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<div class="title_1"><img src="__PUBLIC__/image/未标题-2.png"/>晚餐 </div>
+									<div class="text_2">荤素搭配，两菜一汤，营养均衡，帮助宝宝睡眠有助孩子健康成长</div>
+								</a>
+							</li>
+						</ul>
+						<ul>
+							<li>
+								<a href="javascript:;">
+									<div class="title_1 pc">午餐<img src="__PUBLIC__/image/未标题-1.png"/></div>
+									<div class="title_1 Mobile_1"><img src="__PUBLIC__/image/未标题-1.png"/>午餐</div>
+									<div class="text_2">荤素搭配，两菜一汤，营养均衡，帮助宝宝睡眠有助孩子健康成长</div>
+								</a>
+							</li>
+							<li>
+								<a href="javascript:;">
+									<div class="title_1"><img src="__PUBLIC__/image/未标题-3.png"/>水果点心</div>
+									<div class="text_2">荤素搭配，两菜一汤，营养均衡，帮助宝宝睡眠有助孩子健康成长</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<a class="btn_1" href="javascript:;">了解更多</a>
+				</div>
+				
+				<div class="box_4">
+					<div>
+						<img src="__PUBLIC__/image/box_4.png"/>
+						<div class="title_1">华阳幼儿园，一直以来致力于缔造优质的学前教育服务</div>
+						<div class="text_1">
+							华阳幼儿园，一直以来致力于缔造优质的学前教育服务。校园简介校园简介校园简介校园简介校园简介校园简介校
+							园简介校园简介校园简介校园简介校园简介校园简介校园简介校园简介校园简介校园简介校园简介校园简介校园简介
+							校园简介校园简介校园简介校园简介校园简介校园简介
+						</div>
+						<a class="btn_1" href="jacsript:;">了解更多</a>
+						<div class="ContactUs_1">
+							<span>
+								<i class="icon iconfont icon-dianhua"></i><font>18380155647</font>
+								<i class="cb"></i>
+							</span>
+							<span>
+								<i class="icon iconfont icon-youxiang"></i><font>18380155647</font>
+								<i class="cb"></i>
+							</span>
+							<a class="btn_2" href="javascript:;">在线咨询</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="box_5">
+					<div class="header_1">新闻中心</div>
+					<div class="text_1">3-6岁阶段，是宝宝成长发育的关键时期，对营养素的需要量也相对较高。未来星小小儿童成长牛奶营养均衡型，专为3-6岁宝宝研发，富含50种膳食营养精华，特别添加DHA藻油、优质益生元-低聚半乳糖，帮助宝宝摄取均衡营养。</div>
+					<div class="cont_1">
+						<ul class="list_1">
+							<a href="{:url('index/index/details')}">
+								<li>
+									<div class="img_1"><img src="__PUBLIC__/image/indexbanner.png"/></div>
+									<div class="cont_2">
+										<div class="title_1">扎实理论功底 做好课题研究</div>
+										<div class="title_2">
+											<i class="eye_1 icon iconfont icon-chakanyanjingshishifenxi2"></i>
+											<span>100</span>
+											<i class="mailbox_1 icon iconfont icon-liuyanfill"></i>
+											<span>150</span>
+											<font class="time_1">2017-09-21</font>
+										</div>
+										<div class="text_2">苏霍姆林斯基说：教师，这是学生智力生活中的第一盏、继而也是主要的一盏指路灯；是他在激发学生的求知欲，教会他们尊重科学、文化和教育。</div>
+									</div>
+								</li>
+							</a>
+							<a href="{:url('index/index/details')}">
+								<li>
+									<div class="img_1"><img src="__PUBLIC__/image/teacher_1.jpg"/></div>
+									<div class="cont_2">
+										<div class="title_1">华阳幼儿园小班组阳光体育运动月暨元旦节庆祝活动</div>
+										<div class="title_2">
+											<i class="eye_1 icon iconfont icon-chakanyanjingshishifenxi2"></i>
+											<span>100</span>
+											<i class="mailbox_1 icon iconfont icon-liuyanfill"></i>
+											<span>150</span>
+											<font class="time_1">2017-09-21</font>
+										</div>
+										<div class="text_2">
+											为进一步提高幼儿身体素质，激发幼儿运动的兴趣，培养幼儿不怕寒冷、坚持锻炼的良好习惯，天府新区华阳幼儿园小班组结合实际情况开展了阳光体育运动月暨元旦节庆祝活动。小班组全体幼儿及家长共计200余人参加了此次活动。
+										</div>
+									</div>
+								</li>
+							</a>
+							<a href="{:url('index/index/details')}">
+								<li>
+									<div class="img_1"><img src="__PUBLIC__/image/teacher_4.jpg"/></div>
+									<div class="cont_2">
+										<div class="title_1">我运动 我健康 我快乐</div>
+										<div class="title_2">
+											<i class="eye_1 icon iconfont icon-chakanyanjingshishifenxi2"></i>
+											<span>100</span>
+											<i class="mailbox_1 icon iconfont icon-liuyanfill"></i>
+											<span>150</span>
+											<font class="time_1">2017-09-21</font>
+										</div>
+										<div class="text_2">2017年12月29日，天府新区华阳幼儿园大班组举办了“我运动、我健康、我快乐”的亲子体育游园活动，共计500余名幼儿和家长参加了此次活动。
+										</div>
+									</div>
+								</li>
+							</a>
+						</ul>
+						<div class="cont_3">
+							<ul class="tab_header">
+							   	<li class="active"><a href="#home_0" data-toggle="tab">儿童</a></li>
+								<li><a href="#home_1" data-toggle="tab">校园</a></li>
+								<li><a href="#home_2" data-toggle="tab">师生</a></li>
+								<li><a href="#home_3" data-toggle="tab">健康</a></li>
+							</ul>
+							<div class="tab-content">
+							   	<div class="tab-pane fade in active" id="home_0">
+							   		<ul class="list_2">
+							   			<a href="{:url('index/index/details')}">
+								   			<li>
+								   				<div class="img_1"><img src="__PUBLIC__/image/Parent.jpg"/></div>
+												<div class="cont_4">
+													<div class="title_1">华幼中班组元旦节庆祝活动华幼中班组元旦节庆祝活动</div>
+													<div class="text_2">
+														元旦节是中华民族的传统节日，在这辞旧迎新的日子里，为了让孩子们进一步了解元旦节的美好寓意和传统习俗，度过一个快乐而有意义的节日，天府新区华阳幼儿园中班组开展了丰富多彩的旦节庆祝活动。
+													</div>
+												</div>
+								   			</li>
+							   			</a>
+							   			<a href="{:url('index/index/details')}">
+								   			<li>
+								   				<div class="img_1"><img src="__PUBLIC__/image/indexbanner.png"/></div>
+												<div class="cont_4">
+													<div class="title_1">华幼西区大班组家长开放日活动</div>
+													<div class="text_2">为了让家长更好地了解孩子在幼儿园的学习、生活情况，帮助家长不断获取新的教育理念，更好地达到家园共育目的。华阳幼儿园西区大班组于2017年12月20日上午开展了“家园共育，携手共进”为主题的家长开放日活动。</div>
+												</div>
+								   			</li>
+								   		</a>
+								   		<a href="{:url('index/index/details')}">
+								   			<li>
+								   				<div class="img_1"><img src="__PUBLIC__/image/teacher_3.jpg"/></div>
+												<div class="cont_4">
+													<div class="title_1">抓好课程建设 提升教学质量</div>
+													<div class="text_2">为进一步提升老师们的课程意识和课程设计能力，天府新区华阳幼儿园于2017年12月21日开展了题为“幼儿园课程与活动设计”的专题培训。此次培训特别邀请到成都大学师范学院副教授万中老师作客主讲，华幼集团共计四十余名管理人员和一线教师参加培训。</div>
+												</div>
+								   			</li>
+								   		</a>
+							   		</ul>
+							   	</div>
+							   	<div class="tab-pane fade" id="home_1">
+							   		<ul class="list_2">
+							   			<li>
+							   				<div class="img_1"><img src="__PUBLIC__/image/teacher_3.jpg"/></div>
+											<div class="cont_4">
+												<div class="title_1">新闻标题</div>
+												<div class="text_2">新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻新闻内
+														容新闻内容新闻内容新闻内容新闻内容新闻内容内容新闻内容新闻
+														内容新闻内容新闻内容新闻内内容新闻内容新闻内容新闻
+												</div>
+											</div>
+							   			</li>
+							   		</ul>
+							   	</div>
+							   	<div class="tab-pane fade" id="home_2">
+							   		<ul class="list_2">
+							   			<li>
+							   				<div class="img_1"><img src="__PUBLIC__/image/indexbanner.png"/></div>
+											<div class="cont_4">
+												<div class="title_1">新闻标题</div>
+												<div class="text_2">新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻新闻内
+														容新闻内容新闻内容新闻内容新闻内容新闻内容内容新闻内容新闻
+														内容新闻内容新闻内容新闻内内容新闻内容新闻内容新闻
+												</div>
+											</div>
+							   			</li>
+							   		</ul>
+							   	</div>
+							   	<div class="tab-pane fade" id="home_3">
+							   		<ul class="list_2">
+							   			<li>
+							   				<div class="img_1"><img src="__PUBLIC__/image/Parent.jpg"/></div>
+											<div class="cont_4">
+												<div class="title_1">新闻标题</div>
+												<div class="text_2">新闻内容新闻内容新闻内容新闻内容新闻内容新闻内容新闻新闻内
+														容新闻内容新闻内容新闻内容新闻内容新闻内容内容新闻内容新闻
+														内容新闻内容新闻内容新闻内内容新闻内容新闻内容新闻
+												</div>
+											</div>
+							   			</li>
+							   		</ul>
+							   	</div>
+							</div>
+						</div>
+					</div>
+					<a class="btn_1" href="{:url('index/index/newlist')}">了解更多</a>
+				</div>
+				
+				<div class="box_6">
+					<div id="video"></div>
+					<!--<video width="320" height="240" controls>
+					  	<source src="http://www.huawei.com/better-connected-world/videos/bcw_shenzhen_cn.mp4" type="video/mp4">
+					  	<source src="http://www.huawei.com/better-connected-world/videos/bcw_shenzhen_cn.mp4" type="video/ogg">
+					 	 您的浏览器不支持 HTML5 video 标签。
+					</video>-->
+				</div>
+				
+				{include file="index::footer" /}
+				
+			</div>
+		</div>
+		
+		<link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/2.4.0/skins/default/aliplayer-min.css" />
+     	<script type="text/javascript" src="//g.alicdn.com/de/prismplayer/2.4.0/aliplayer-min.js"></script>
+		
+		<style type="text/css">
+			.prism-player .prism-big-play-btn{
+				top: 0px;
+				left: 0px;
+				bottom: 0px;
+				right: 0px;
+				margin: auto;
+			}
+		</style>
+		
+		<!--<script src="__PUBLIC__/plugins/ckplayer/ckplayer.js" type="text/javascript" charset="utf-8"></script>-->
+		<script src="__PUBLIC__/plugins/swiper/js/swiper.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var swiper = new Swiper('.swiper-container1', {
+			      	spaceBetween: 1,
+			      	loop : true,
+			      	autoplay:true,
+			      	pagination: {
+			       		el: '.swiper-pagination',
+			        	clickable: true,
+			      	},
+			      	on:{
+					    touchStart: function(event){
+//					    	$('.banner').addClass('active')
+					    	console.log('开始拖动')
+					    },
+					    slideChangeTransitionEnd:function(){
+//					    	$('.banner').removeClass('active')
+					    }
+					},
+			    });
+//			var flashvars={
+//				p:0,
+//				e:1,
+//				i:'__PUBLIC__/image/park_1.png'
+//				};
+//			var video=['http://img.ksbbs.com/asset/Mon_1605/0ec8cc80112a2d6.mp4->video/mp4'];
+//			var support=['all'];
+//			CKobject.embedHTML5('video','ckplayer_a1','100%','100%',video,flashvars,support);    
+			
+			
+			
+			var wh=$('#video').height();
+        	var ww=$('#video').width();
+        	var top_1=(wh-128)/2
+        	var left_1=(ww-128)/2
+			var player = new Aliplayer({
+		            id: 'video',
+		            width: '100%',
+		            height:'99%',
+		            autoplay: false,
+		            controlBarVisibility:"always",
+		            //支持播放地址播放,此播放优先级最高
+		          	source : 'http://img.ksbbs.com/asset/Mon_1605/0ec8cc80112a2d6.mp4',
+		            //播放方式二：点播用户推荐
+//					vid:'1688bedd66f84d5091f4bb469ef08af9',
+//					playauth:x.PlayAuth,
+		          	cover:'__PUBLIC__/image/park_1.png',
+		            //播放方式三：仅MTS用户使用
+		//          vid : '9f017a061ea444b8806432feb3f5ee7e',
+		//          accId: '',
+		//          accSecret: '',
+		            stsToken: '',
+		            domainRegion: '',
+		            authInfo: '',
+		            skinLayout:[
+		            		{"name":"infoDisplay","align":"cc"},
+		            		//错误信息显示
+						    {"name":"errorDisplay","align":"tlabs","x":0,"y":0},
+						    //大播放按钮
+				      		{"name":"bigPlayButton","align":"blabs"},
+						  	{name:"controlBar", align:"blabs", x:0, y:0,
+						    children: [
+						    		//进度条
+						      		{name: "progress", align: "tlabs", x: 0, y: 0},
+						      		//播放按钮
+						      		{name: "playButton", align: "tl", x: 15, y: 26},
+						      		//播放时间
+						      		{name: "timeDisplay", align: "tl", x: 10, y: 24},
+						      		//高清标清切换
+						      		{name:"streamButton", align:"tr",x:10, y:23},
+						      		//播放速度按钮
+//						      		{name:"speedButton", align:"tr",x:10, y:23},
+						      		{name: "volume", align: "tr", x: 20, y: 25},
+						      		{name: "volMaxDown", align: "tr", x: 20, y: 25},
+						      		
+						      		{"name":"fullScreenButton","align":"tr","x":20,"y":25}
+
+						    	]
+							},
+						]
+		            },function(player){
+		            	console.log(player)
+		                console.log('播放器创建好了。')
+		                $('.prism-error-content').css({'margin-top':window.innerHeight*0.3+'px'})
+						window.onresize = function(){
+							var wh=window.innerHeight
+//							console.log(wh*0.05)
+							$('.prism-error-content').css({'margin-top':wh*0.3+'px'})
+						}
+		        });
+			
+		</script>
+	</body>
+</html>

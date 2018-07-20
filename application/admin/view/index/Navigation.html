@@ -1,0 +1,329 @@
+			<!--顶部-->
+			<header class="main-header">
+				<!-- Logo -->
+				<a href="index2.html" class="logo">
+					<!-- mini logo for sidebar mini 50x50 pixels -->
+					<span class="logo-mini"><b>ZL</b></span>
+					<!-- logo for regular state and mobile devices -->
+					<span class="logo-lg"><b>Zonlinks</b></span>
+				</a>
+				<!-- Header Navbar: style can be found in header.less -->
+				<nav class="navbar navbar-static-top">
+					<!-- Sidebar toggle button-->
+					<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+						<span class="sr-only">Toggle navigation</span>
+					</a>
+
+					<div class="navbar-custom-menu">
+						<ul class="nav navbar-nav">
+							<!-- Messages: style can be found in dropdown.less-->
+							<li class="dropdown messages-menu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-envelope-o"></i>
+									<span class="label label-success">0</span>
+								</a>
+							</li>
+							<!-- Notifications: style can be found in dropdown.less -->
+							<li class="dropdown notifications-menu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-bell-o"></i>
+									<span class="label label-warning">0</span>
+								</a>
+							</li>
+							<!-- Tasks: style can be found in dropdown.less -->
+							<li class="dropdown tasks-menu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-flag-o"></i>
+									<span class="label label-danger">0</span>
+								</a>
+							</li>
+							<!-- User Account: style can be found in dropdown.less -->
+							<li class="dropdown user user-menu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<img src="__PUBLIC__/plugins/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+									<span class="hidden-xs">{$user.Name ?? ''}</span>
+								</a>
+								<ul class="dropdown-menu">
+									<!-- User image -->
+									<li class="user-header">
+										<img src="__PUBLIC__/plugins/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image" />
+										<p>
+											{$user.Name ?? ''} - Web Developer
+											<small>{$user.CreationTime ? date('Y-m-d H:i',strtotime($user.CreationTime)) : ''}</small>
+										</p>
+									</li>
+									<li class="user-footer">
+										<div class="pull-left">
+											<a href="#" class="btn btn-default btn-flat">个人资料</a>
+										</div>
+										<div class="pull-right SignOut">
+											<a href="#" class="btn btn-default btn-flat">退出</a>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<!-- Control Sidebar Toggle Button -->
+							<li class="SignOut">
+								<a href="#"><i class="glyphicon glyphicon-off"></i></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</header>
+			
+			<!--导航-->
+			<!-- Left side column. contains the logo and sidebar -->
+			<aside class="main-sidebar">
+				<!-- sidebar: style can be found in sidebar.less -->
+				<section class="sidebar">
+					<!-- Sidebar user panel -->
+					<div class="user-panel">
+						<div class="pull-left image">
+							<img src="__PUBLIC__/plugins/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+						</div>
+						<div class="pull-left info">
+							<p>{$user.Name ?? ''}</p>
+							<a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+						</div>
+					</div>
+					<!-- search form -->
+					<form action="#" method="get" class="sidebar-form">
+						<div class="input-group">
+							<input type="text" name="q" class="form-control" placeholder="Search...">
+							<span class="input-group-btn">
+				                <button type="button" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+              				</span>
+						</div>
+					</form>
+					<!-- /.search form -->
+					<!-- sidebar menu: : style can be found in sidebar.less -->
+					<ul class="sidebar-menu">
+						<li class="header">MAIN NAVIGATION</li>
+						<li class="{$action=='index' ? 'active' :''}">
+							<a href="{:url('admin/index/index')}">
+								<i class="fa fa-dashboard"></i><span>首页</span>
+							</a>
+						</li>
+						<li>
+							<a target="_blank" href="{:url('index/index/index')}">
+								<i class="glyphicon glyphicon-share"></i><span>查看站点</span>
+							</a>
+						</li>
+						<li class="treeview {$action=='basic' || $action=='menu_0' || $action=='menu_1' ? 'active' :''}">
+							<a href="#">
+								<i class="fa fa-cog"></i><span>基本信息</span>
+								<span class="pull-right-container">
+				              		<i class="fa fa-angle-left pull-right"></i>
+				            	</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="{$action=='basic' ? 'active' :''}">
+									<a href="{:url('admin/index/basic')}"><i class="fa fa-circle-o"></i>常规设置</a>
+								</li>
+								<li class="{$action=='menu_0' ? 'active' :''}">
+									<a href="{:url('admin/index/menu')}?t=0"><i class="fa fa-circle-o"></i>顶部导航</a>
+								</li>
+								<li class="{$action=='menu_1' ? 'active' :''}">
+									<a href="{:url('admin/index/menu')}?t=1"><i class="fa fa-circle-o"></i>底部导航</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview {$action=='banner_0' || $action=='banner_1' || $action=='banner_2' || $action=='banner_3' ? 'active' :''}">
+							<a href="#">
+								<i class="fa fa-cog"></i><span>banner设置</span>
+								<span class="pull-right-container">
+				              		<i class="fa fa-angle-left pull-right"></i>
+				            	</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="{$action=='banner_0' ? 'active' :''}"><a href="{:url('admin/index/banner')}?t=0"><i class="fa fa-circle-o"></i>首页banner</a></li>
+								<li class="{$action=='banner_1' ? 'active' :''}"><a href="{:url('admin/index/banner')}?t=1"><i class="fa fa-circle-o"></i>集团介绍banner</a></li>
+								<li class="{$action=='banner_2' ? 'active' :''}"><a href="{:url('admin/index/banner')}?t=2"><i class="fa fa-circle-o"></i>办学理念banner</a></li>
+								<li class="{$action=='banner_3' ? 'active' :''}"><a href="{:url('admin/index/banner')}?t=3"><i class="fa fa-circle-o"></i>办学理念banner</a></li>
+								<li class="{$action=='banner_4' ? 'active' :''}"><a href="{:url('admin/index/banner')}?t=4"><i class="fa fa-circle-o"></i>教师风采banner</a></li>
+								<li class="{$action=='banner_5' ? 'active' :''}"><a href="{:url('admin/index/banner')}?t=5"><i class="fa fa-circle-o"></i>特色活动banner</a></li>
+								<li class="{$action=='banner_6' ? 'active' :''}"><a href="{:url('admin/index/banner')}?t=6"><i class="fa fa-circle-o"></i>家园共育banner</a></li>
+								<li class="{$action=='banner_7' ? 'active' :''}"><a href="{:url('admin/index/banner')}?t=7"><i class="fa fa-circle-o"></i>教育科研banner</a></li>
+							</ul>
+						</li>
+						<li class="treeview {$action=='type_1' || $action=='Resources_1' ? 'active':''}" >
+							<a href="#">
+								<i class="glyphicon glyphicon-list-alt"></i><span>园区特色管理</span>
+								<span class="pull-right-container">
+				              		<i class="fa fa-angle-left pull-right"></i>
+				            	</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="{$action=='Resources_1' ? 'active' : ''}">
+									<a href="{:url('admin/index/Resources')}?t=1"><i class="fa fa-circle-o"></i>园区特色</a>
+								</li>
+								<li class="{$action=='type_1' ? 'active' : ''}">
+									<a href="{:url('admin/index/type')}?t=1"><i class="fa fa-circle-o"></i>园区类型</a>
+								</li>
+							</ul>
+						</li>
+						
+						<li class="{$action=='Honor_7' ? 'active' : ''}">
+							<a href="{:url('admin/index/Honor')}?t=7">
+								<i class="glyphicon glyphicon-envelope"></i><span>园区荣誉</span>
+							</a>
+						</li>
+						
+						<li class="treeview {$action=='type_8' || $action=='Resources_8' ? 'active':''}" >
+							<a href="#">
+								<i class="glyphicon glyphicon-list-alt"></i><span>人员照片墙</span>
+								<span class="pull-right-container">
+				              		<i class="fa fa-angle-left pull-right"></i>
+				            	</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="{$action=='Resources_98' ? 'active' : ''}">
+									<a href="{:url('admin/index/Resources')}?t=8"><i class="fa fa-circle-o"></i>人员照片管理</a>
+								</li>
+								<li class="{$action=='type_8' ? 'active' : ''}">
+									<a href="{:url('admin/index/type')}?t=8"><i class="fa fa-circle-o"></i>展示类型</a>
+								</li>
+							</ul>
+						</li>
+						
+						<li class="treeview {$action=='type_2' || $action=='Resources_2' ? 'active':''}" >
+							<a href="#">
+								<i class="glyphicon glyphicon-list-alt"></i><span>教师风采</span>
+								<span class="pull-right-container">
+				              		<i class="fa fa-angle-left pull-right"></i>
+				            	</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="{$action=='Resources_2' ? 'active' : ''}">
+									<a href="{:url('admin/index/Resources')}?t=2"><i class="fa fa-circle-o"></i>教师风采管理</a>
+								</li>
+								<li class="{$action=='type_2' ? 'active' : ''}">
+									<a href="{:url('admin/index/type')}?t=2"><i class="fa fa-circle-o"></i>展示类型</a>
+								</li>
+							</ul>
+						</li>
+						
+						<li class="treeview {$action=='type_3' || $action=='Resources_3' ? 'active':''}" >
+							<a href="#">
+								<i class="glyphicon glyphicon-list-alt"></i><span>宝贝风采</span>
+								<span class="pull-right-container">
+				              		<i class="fa fa-angle-left pull-right"></i>
+				            	</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="{$action=='Resources_3' ? 'active' : ''}">
+									<a href="{:url('admin/index/Resources')}?t=3"><i class="fa fa-circle-o"></i>宝贝风采管理</a>
+								</li>
+								<li class="{$action=='type_3' ? 'active' : ''}">
+									<a href="{:url('admin/index/type')}?t=3"><i class="fa fa-circle-o"></i>展示类型</a>
+								</li>
+							</ul>
+						</li>
+						
+						<li class="treeview {$action=='type_4' || $action=='Resources_4' ? 'active':''}" >
+							<a href="#">
+								<i class="glyphicon glyphicon-list-alt"></i><span>特色活动</span>
+								<span class="pull-right-container">
+				              		<i class="fa fa-angle-left pull-right"></i>
+				            	</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="{$action=='Resources_4' ? 'active' : ''}">
+									<a href="{:url('admin/index/Resources')}?t=4"><i class="fa fa-circle-o"></i>特色活动管理</a>
+								</li>
+								<li class="{$action=='type_4' ? 'active' : ''}">
+									<a href="{:url('admin/index/type')}?t=4"><i class="fa fa-circle-o"></i>展示类型</a>
+								</li>
+							</ul>
+						</li>
+						
+						<li class="treeview {$action=='type_5' || $action=='Resources_5' ? 'active':''}" >
+							<a href="#">
+								<i class="glyphicon glyphicon-list-alt"></i><span>家园共育</span>
+								<span class="pull-right-container">
+				              		<i class="fa fa-angle-left pull-right"></i>
+				            	</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="{$action=='Resources_5' ? 'active' : ''}">
+									<a href="{:url('admin/index/Resources')}?t=5"><i class="fa fa-circle-o"></i>家园共育管理</a>
+								</li>
+								<li class="{$action=='type_5' ? 'active' : ''}">
+									<a href="{:url('admin/index/type')}?t=5"><i class="fa fa-circle-o"></i>展示类型</a>
+								</li>
+							</ul>
+						</li>
+						
+						<li class="treeview {$action=='type_6' || $action=='Resources_6' ? 'active':''}" >
+							<a href="#">
+								<i class="glyphicon glyphicon-list-alt"></i><span>教育科研</span>
+								<span class="pull-right-container">
+				              		<i class="fa fa-angle-left pull-right"></i>
+				            	</span>
+							</a>
+							<ul class="treeview-menu">
+								<li class="{$action=='Resources_6' ? 'active' : ''}">
+									<a href="{:url('admin/index/Resources')}?t=6"><i class="fa fa-circle-o"></i>教育科研管理</a>
+								</li>
+								<li class="{$action=='type_6' ? 'active' : ''}">
+									<a href="{:url('admin/index/type')}?t=6"><i class="fa fa-circle-o"></i>展示类型</a>
+								</li>
+							</ul>
+						</li>
+						
+						<li class="{$action=='leaving' ? 'active' : ''}">
+							<a href="{:url('admin/index/leaving')}">
+								<i class="glyphicon glyphicon-envelope"></i><span>用户留言</span>
+								{if condition="$leavingIsRead != 0"}
+								<span class="pull-right-container leavingIsRead">
+					              	<span class="label label-primary pull-right">{$leavingIsRead}</span>
+					            </span>
+								{/if}
+							</a>
+						</li>
+						<li class="{$action=='Resources_2' ? 'active' : ''}">
+							<a href="{:url('admin/index/Resources')}?t=2">
+								<i class="fa fa-wikipedia-w"></i><span>页面管理</span>
+							</a>
+						</li>
+						<li class="{$action=='user' ? 'active' :''}">
+							<a href="{:url('admin/index/user')}">
+								<i class="fa fa-group"></i><span>用户管理</span>
+							</a>
+						</li>
+						<li class="{$action=='access' ? 'active' :''}">
+							<a href="{:url('admin/index/access')}">
+								<i class="fa fa-group"></i><span>访问记录</span>
+							</a>
+						</li>
+						<li class="SignOut">
+							<a href="javascript:;">
+								<i class="glyphicon glyphicon-off"></i><span>安全退出</span>
+							</a>
+						</li>
+						<li class="header">LABELS</li>
+						<li>
+							<a href="#"><i class="fa fa-circle-o text-red"></i> <span>帮助</span></a>
+						</li>
+					</ul>
+				</section>
+				<!-- /.sidebar -->
+			</aside>
+			
+
+		<script src="__PUBLIC__/plugins/jQuery/jquery-2.2.3.min.js"></script>
+		
+		<script type="text/javascript">
+			$('.SignOut').click(function(){
+				$.ajax({
+					type:"post",
+					url:"{:url('post/SignOut')}",
+					async:true,
+					success:function(x){
+						console.log(x)
+						window.location.href="{:url('admin/index/login')}"
+					}
+				});
+
+			})
+		</script>

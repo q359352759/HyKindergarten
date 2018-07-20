@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>
+		<meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge,IE=11,IE=10,IE=9,IE=8"/>
+		<meta http-equiv="expires" content="0" /> 
+		<meta http-equiv="Pragma" content="no-cache" />
+		
+		<title>众联云海后台管理系统</title>
+		<!-- Tell the browser to be responsive to screen width -->
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<!-- Bootstrap 3.3.6 -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/bootstrap/css/bootstrap.min.css">
+		<!-- Font Awesome -->
+		<!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/font-awesome/css/font-awesome.css">
+		<!-- Ionicons -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+		<!-- Theme style -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/dist/css/AdminLTE.min.css">
+		<!-- AdminLTE Skins. Choose a skin from the css/skins
+       folder instead of downloading all of them to reduce the load. -->
+		<link rel="stylesheet" href="__PUBLIC__/plugins/dist/css/skins/_all-skins.min.css">
+			
+		<style type="text/css">
+			ul{
+				padding: 0px;
+				margin: 0px;
+			}
+			li{
+				list-style: none;
+			}
+			.cb{
+				clear: both;
+			}
+			.list>li{
+				height: 300px;
+				background: #EEEEEE;
+				border: 1px solid #EEEBEA;
+				position: relative;
+				margin-bottom: 15px;
+			}
+			.list>li>div{
+				height: 100%;
+				padding: 50px 30% 0px 10%;
+				overflow: auto;
+			}
+			.list>li .file{
+				display: none;
+			}
+			.list>li .SelectAPicture{
+				position: absolute;
+				top: 0px;
+				left: 0px;
+				padding: 5px 10px;
+				color: #FFFFFF;
+				background: #00acd6;
+				cursor: pointer;
+				font-size: 12px;
+			}
+			.list>li .SelectAPicture:hover{
+				background: #0898bb;
+			}
+			.list>li .delete{
+				position: absolute;
+				top: 0px;
+				right: 0px;
+				padding: 5px 10px;
+				color: #FFFFFF;
+				background: red;
+				font-size: 12px;
+				cursor: pointer;
+			}
+			.list>li .delete:hover{
+				background: #c30505;
+			}
+			.list>li>img{
+				position: absolute;
+				max-height: 100%;
+				max-width: 100%;
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+				top: 0px;
+				bottom: 0px;
+				left: 0px;
+				right: 0px;
+				margin: auto;
+			}
+			.list>li .form-control{
+				background: rgba(255,255,255,0.8);
+				position: relative;
+			}
+			.list>li .title,
+			.list>li .text{
+				height: auto;
+				position: relative;
+				margin-bottom: 20px;
+			}
+			.list>li .title:empty:before{
+				content:'请输入标题,建议不超过两行！'; color: gray;
+			}
+			.list>li .title:focus:before{
+				content:none;
+			}
+			.list>li .text:empty:before{
+				content:'请输入简介，建议不超过两行！'; color: gray;
+			}
+			.list>li .text:focus:before{
+				content:none;
+			}
+		</style>
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+	</head>
+
+	<body class="hold-transition skin-blue sidebar-mini">
+		<div class="wrapper">
+			
+			<!--引入导航-->
+			{include file="index::Navigation" /}
+			
+			<!-- Content Wrapper. Contains page content -->
+			<div class="content-wrapper">
+				<!-- Content Header (Page header) -->
+				<section class="content-header">
+					<h1>
+						{$typeNme[$type]}
+				   	</h1>
+					<ol class="breadcrumb">
+				        <li><a href="javascript:;"><i class="fa fa-dashboard"></i>{$typeNme[$type]}</a></li>
+				        <li class="active">banner设置</li>
+				    </ol>
+				</section>
+				
+				<!--内容-->
+				<section class="content">
+					<div class="box">
+						<div class="box-header"><button class="addList btn btn-sm btn-info">添加</button></div>
+						<div class="box-body">
+							<form class="form">
+								<ul class="list">
+									{volist name="bannerList" id="obj"}
+									<li>
+										<img img-data="{$obj.imgUrl}" base64='' src="__UPLOAD__/{$obj.imgUrl}"/>
+										<div class="hidden">
+											<div class="form-control title" contenteditable="true">{$obj.title}</div>
+											<div class="form-control text" contenteditable="true">{$obj.text}</div>
+											<input type="text" placeholder="跳转链接" class="form-control href hidden" value="{$obj.href}" />
+										</div>
+										<p class="SelectAPicture">选择图片</p>
+										<span class="delete">删除此条</span>
+										<input type="file" accept="image/*" class="file" name="file" id="" value="" />
+									</li>
+									{/volist}
+									{if condition="count($bannerList)==0"}
+									<li>
+										<img img-data="" base64='' src=""/>
+										<div class="hidden">
+											<div class="form-control title" contenteditable="true"></div>
+											<div class="form-control text" contenteditable="true"></div>
+											<input type="text" placeholder="跳转链接" class="form-control href hidden" value="" />
+										</div>
+										<p class="SelectAPicture">选择图片</p>
+										<span class="delete">删除此条</span>
+										<input type="file" accept="image/*" class="file" name="file" id="" value="" />
+									</li>
+									{/if}
+								</ul>
+								<button type="submit" class="btn btn-block btn-info">保存</button>
+							</form>
+						</div>
+					</div>
+				</section>
+				<!-- /.content -->
+			</div>
+			
+			{include file="index::footer" /}
+			<div class="control-sidebar-bg"></div>
+		</div>
+		<!-- ./wrapper -->
+		
+		
+		
+		<div class="modal fade" id="Prompt" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		                <h4 class="modal-title" id="myModalLabel">提示</h4>
+		            </div>
+		            <div class="modal-body Prompt"></div>
+		            <!--<div class="modal-footer">
+		                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+		                <button type="button" class="DetermineDel btn btn-primary">确定</button>
+		            </div>-->
+		        </div><!-- /.modal-content -->
+		    </div><!-- /.modal -->
+		</div>
+		
+		
+		
+		<!-- jQuery 2.2.3 -->
+		<!-- jQuery UI 1.11.4 -->
+		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+		<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+		<script>
+			$.widget.bridge('uibutton', $.ui.button);
+		</script>
+		<!-- Bootstrap 3.3.6 -->
+		<script src="__PUBLIC__/plugins/bootstrap/js/bootstrap.min.js"></script>
+		
+		<!-- AdminLTE App -->
+		<script src="__PUBLIC__/plugins/dist/js/app.min.js"></script>
+		<script src="__PUBLIC__/plugins/vue/vue.js"></script>
+		<script type="text/javascript">
+			
+			function ajax_post(u,d,f){
+				$.ajax({
+					type:"post",
+					url:u,
+					data:d,
+					async:true,
+					success:function(x){
+						f(x)
+					}
+				});
+			}
+			//添加列
+								var li='<li>'+
+										'<img img-data="" base64="" src=""/>'+
+										'<div class="hidden">'+
+											'<div class="form-control title" contenteditable="true"></div>'+
+											'<div class="form-control text" contenteditable="true"></div>'+
+											'<input type="text" placeholder="跳转链接" class="form-control href" name="" id="" value="" />'+
+										'</div>'+
+										'<p class="SelectAPicture">选择图片</p>'+
+										'<span class="delete">删除此条</span>'+
+										'<input type="file" accept="image/*" class="file" name="file" id="" value="" />'+
+									'</li>'
+			$('.addList').click(function(){
+				$('.list').append(li)
+			})
+			//删除列
+			$('.list').on('click','.delete',function(){
+				$(this).parents('li').remove()
+			});
+			//选择图片
+			$('.list').on('click','.SelectAPicture',function(){
+				$(this).siblings('.file').click();
+			})
+			$('.list').on('change','.file',function(){
+				var this_1=$(this);
+				var file01=$(this)[0].files[0];
+				if(!file01){
+					$(this).siblings('img').attr('src',$(this).siblings('img').attr('img-data'))
+					$(this).siblings('img').attr('src',$(this).siblings('base64').attr(''))
+					return
+				};
+				var type=file01.type.substring(0,file01.type.indexOf('/'));
+				if(type!='image'){
+					$(this).siblings('img').attr('src',$(this).siblings('img').attr('img-data'))
+					$(this).siblings('img').attr('src',$(this).siblings('base64').attr(''))
+				}else{
+					files=new FileReader();
+					files.readAsDataURL(file01)
+					files.onload=function(e){
+						var fil01 = e.target.result;
+						var pos = fil01.indexOf("4") + 2;
+//						this_1.parent().prev().append('<span>删除</span>');
+//						this_1.parent().prev().children('div').html('<img src="'+fil01+'"/>')
+						this_1.siblings('img').attr('src',fil01);
+						this_1.siblings('img').attr('base64',fil01);
+					}
+				}
+			})
+//			console.log({:input('get.t')})
+			
+			$('.form').submit(function(){
+				var val=[];
+				var sub=true
+				$('.list').children().each(function(i){
+					var obj=new Object();
+						obj.title=$(this).find('.title').html();
+						obj.text=$(this).find('.text').html();
+						obj.img_data=$(this).find('img').attr('img-data');
+						obj.base64=$(this).find('img').attr('base64');
+						obj.href=$(this).find('.href').val();
+						obj.sort=i
+						if(obj.img_data=='' && obj.base64==''){
+							$('.Prompt').html('第'+(i+1)+'条,请选择图片');
+							$('#Prompt').modal('show');
+							sub=false
+							return false;
+						}
+					val.push(obj)
+				})
+				if(sub){
+					$.ajax({   
+						type: "POST",
+						url: "{:url('admin/post/banner')}",
+						data: {'data':val,'type':"{:input('get.t')}"},
+	//					processData: false,
+						//必须false才会自动加上正确的Content-Type
+	//					contentType: false,
+						success:function(data){
+							console.log(data)
+							if(isNaN(data)){
+								$('.Prompt').html('设置失败！请联系管理员');
+								$('#Prompt').modal('show');
+							}else{
+								$('.Prompt').html('设置成功');
+								$('#Prompt').modal('show');
+							}
+						},
+						error:function(x){
+							console.log(x)
+						}
+						
+					});
+				}
+				return false;
+			})
+			
+			
+			
+			
+			function onprogress(evt) {
+				var loaded = evt.loaded;     //已经上传大小情况 
+				var tot = evt.total;      //附件总大小 
+				var per = Math.floor(100 * loaded / tot);  //已经上传的百分比 
+				$(".progress_1").css("width", per + "%"); 
+			}
+			
+			function formatDate (date, fmt) {
+				if (/(y+)/.test(fmt)) {
+				    fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
+				}
+				let o = {
+				    'M+': date.getMonth() + 1,
+				    'd+': date.getDate(),
+				    'h+': date.getHours(),
+				    'm+': date.getMinutes(),
+				    's+': date.getSeconds()
+				}
+				for (let k in o) {
+				  	if (new RegExp(`(${k})`).test(fmt)) {
+				      	let str = o[k] + ''
+				      	fmt = fmt.replace(RegExp.$1, (RegExp.$1.length === 1) ? str : padLeftZero(str))
+				    }
+				}
+				return fmt
+			}
+			function padLeftZero (str) {
+				return ('00' + str).substr(str.length)
+			}
+			
+		</script>
+	</body>
+</html>
